@@ -223,7 +223,7 @@
       if (title1) {
         setTimeout(function () {
           animateTitleElement(title1);
-        }, 300);
+        }, 250);
       }
     }
 
@@ -238,12 +238,27 @@
             obs.unobserve(entry.target);
           }
         });
-      }, { threshold: 0.35 });
+      }, { threshold: 0.1, rootMargin: '0px 0px -10px 0px' });
 
       stages.forEach(function (st) {
         if (st) stageObserver.observe(st);
       });
     }
+
+    // Fast scroll check for mobile touch screens
+    function checkStageTitles() {
+      stages.forEach(function (st) {
+        if (!st) return;
+        const title = st.querySelector('[data-title-animation]');
+        if (!title || title.dataset.animated === 'true') return;
+        const rect = st.getBoundingClientRect();
+        if (rect.top < window.innerHeight * 0.88) {
+          animateTitleElement(title);
+        }
+      });
+    }
+    window.addEventListener('scroll', checkStageTitles, { passive: true });
+    checkStageTitles();
   }
 
 
@@ -356,66 +371,79 @@
         const srcOpt = getRiveSource('f' + num, 'animations/pages/home/features/' + num + '.riv');
         const instance = new rive.Rive(Object.assign({}, srcOpt, {
           canvas: canvas,
-          autoplay: false,
+          autoplay: true,
           layout: new rive.Layout({
             fit: rive.Fit.FitWidth,
             alignment: rive.Alignment.Center,
           }),
           onLoad: function () {
             instance.resizeDrawingSurfaceToCanvas();
+            if (typeof instance.play === 'function') instance.play();
           }
         }));
 
         featureRiveInstances.push(instance);
 
-        // Hover interaction
         const card = canvas.closest('.feature-item');
         if (card) {
-          card.addEventListener('mouseenter', function () {
-            instance.play();
-          });
+          function triggerPlay() {
+            if (instance && typeof instance.play === 'function') {
+              instance.play();
+            }
+          }
+
+          // Desktop hover
+          card.addEventListener('mouseenter', triggerPlay);
+
+          // Mobile touch and tap
+          card.addEventListener('pointerdown', triggerPlay);
+          card.addEventListener('touchstart', triggerPlay, { passive: true });
+          card.addEventListener('click', triggerPlay);
+
+          // Scroll trigger per card: play when scrolled into view
+          if ('IntersectionObserver' in window) {
+            const cardObserver = new IntersectionObserver(function (entries) {
+              entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                  triggerPlay();
+                }
+              });
+            }, { threshold: 0.15 });
+            cardObserver.observe(card);
+          }
         }
       } catch (e) {
         console.warn('Feature rive error:', e);
       }
     });
 
-    // Sequential chain execution when features section is visible
+    // Continuous loop: replay icons so they remain active on mobile & desktop
     const featuresSection = document.getElementById('features');
+    let sectionInView = true;
+
     if (featuresSection && 'IntersectionObserver' in window) {
-      let chainStarted = false;
-
-      function startSequentialLoop() {
-        if (!featureRiveInstances.length || chainStarted) return;
-        chainStarted = true;
-
-        function playNext(i) {
-          if (!chainStarted) return;
-          const inst = featureRiveInstances[i];
-          if (!inst) return;
-          inst.play();
-
-          // Wait 2.2s before advancing to next icon
-          setTimeout(function () {
-            playNext((i + 1) % featureRiveInstances.length);
-          }, 2200);
-        }
-
-        playNext(0);
-      }
-
-      const featuresObserver = new IntersectionObserver(function (entries) {
+      const sectionObserver = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            startSequentialLoop();
-          } else {
-            chainStarted = false;
+          sectionInView = entry.isIntersecting;
+          if (sectionInView) {
+            featureRiveInstances.forEach(function (inst) {
+              if (inst && typeof inst.play === 'function') inst.play();
+            });
           }
         });
-      }, { threshold: 0.2 });
-
-      featuresObserver.observe(featuresSection);
+      }, { threshold: 0.05 });
+      sectionObserver.observe(featuresSection);
     }
+
+    // Gentle auto-cycle every 3.5 seconds
+    setInterval(function () {
+      if (!sectionInView || !featureRiveInstances.length) return;
+      featureRiveInstances.forEach(function (inst) {
+        if (inst && typeof inst.play === 'function') {
+          inst.play();
+        }
+      });
+    }, 3500);
   }
 
 
@@ -428,6 +456,7 @@
     if (!revealEls.length) return;
 
     if ('IntersectionObserver' in window) {
+      const isMobile = window.innerWidth <= 1023;
       const revealObserver = new IntersectionObserver(function (entries, obs) {
         entries.forEach(function (entry) {
           if (entry.isIntersecting) {
@@ -435,7 +464,10 @@
             obs.unobserve(entry.target);
           }
         });
-      }, { threshold: 0.12, rootMargin: '0px 0px -32px 0px' });
+      }, {
+        threshold: isMobile ? 0.04 : 0.12,
+        rootMargin: isMobile ? '0px 0px 40px 0px' : '0px 0px -32px 0px'
+      });
 
       revealEls.forEach(function (el) { revealObserver.observe(el); });
     } else {
@@ -932,6 +964,26 @@
       startTimer();
     });
 
+    // Mobile touch swipe support
+    let touchStartX = 0;
+    let touchEndX = 0;
+    carousel.addEventListener('touchstart', function (e) {
+      touchStartX = e.changedTouches[0].screenX;
+      isPaused = true;
+      stopTimer();
+    }, { passive: true });
+
+    carousel.addEventListener('touchend', function (e) {
+      touchEndX = e.changedTouches[0].screenX;
+      isPaused = false;
+      const diff = touchEndX - touchStartX;
+      if (Math.abs(diff) > 40) {
+        if (diff < 0) nextSlide();
+        else prevSlide();
+      }
+      startTimer();
+    }, { passive: true });
+
     if ('IntersectionObserver' in window) {
       const obs = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
@@ -1067,6 +1119,26 @@
       startTimer();
     });
 
+    // Mobile touch swipe support
+    let touchStartX = 0;
+    let touchEndX = 0;
+    carousel.addEventListener('touchstart', function (e) {
+      touchStartX = e.changedTouches[0].screenX;
+      isPaused = true;
+      stopTimer();
+    }, { passive: true });
+
+    carousel.addEventListener('touchend', function (e) {
+      touchEndX = e.changedTouches[0].screenX;
+      isPaused = false;
+      const diff = touchEndX - touchStartX;
+      if (Math.abs(diff) > 40) {
+        if (diff < 0) nextSlide();
+        else prevSlide();
+      }
+      startTimer();
+    }, { passive: true });
+
     if ('IntersectionObserver' in window) {
       const obs = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
@@ -1201,6 +1273,26 @@
       isPaused = false;
       startTimer();
     });
+
+    // Mobile touch swipe support
+    let touchStartX = 0;
+    let touchEndX = 0;
+    carousel.addEventListener('touchstart', function (e) {
+      touchStartX = e.changedTouches[0].screenX;
+      isPaused = true;
+      stopTimer();
+    }, { passive: true });
+
+    carousel.addEventListener('touchend', function (e) {
+      touchEndX = e.changedTouches[0].screenX;
+      isPaused = false;
+      const diff = touchEndX - touchStartX;
+      if (Math.abs(diff) > 40) {
+        if (diff < 0) nextSlide();
+        else prevSlide();
+      }
+      startTimer();
+    }, { passive: true });
 
     if ('IntersectionObserver' in window) {
       const obs = new IntersectionObserver(function (entries) {
@@ -1650,8 +1742,49 @@
     initFirewallCarousel();
     initProjectsCarousel();
     initDirectContactForm();
+    initHeroMobileCopyEmail();
 
     startRiveEngines();
+  }
+
+  function initHeroMobileCopyEmail() {
+    const copyBtn = document.getElementById('heroMobileCopyEmailBtn');
+    if (!copyBtn) return;
+
+    copyBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      const email = 'admin@dreainno.website';
+      const textSpan = copyBtn.querySelector('.copy-feedback-text');
+
+      function showCopied() {
+        if (textSpan) textSpan.textContent = 'Copied!';
+        copyBtn.classList.add('is-copied');
+        setTimeout(function () {
+          if (textSpan) textSpan.textContent = 'Copy';
+          copyBtn.classList.remove('is-copied');
+        }, 2200);
+      }
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(email).then(showCopied).catch(function () {
+          window.location.href = 'mailto:' + email;
+        });
+      } else {
+        var textarea = document.createElement('textarea');
+        textarea.value = email;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+          document.execCommand('copy');
+          showCopied();
+        } catch (err) {
+          window.location.href = 'mailto:' + email;
+        }
+        document.body.removeChild(textarea);
+      }
+    });
   }
 
   if (document.readyState === 'loading') {

@@ -1,0 +1,170 @@
+<svg width="480" height="360" viewBox="0 0 480 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Rich gradients for 3D physics lighting -->
+    <radialGradient id="ballGrad" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#bae6fd" />
+      <stop offset="35%" stop-color="#38bdf8" />
+      <stop offset="70%" stop-color="#2563eb" />
+      <stop offset="100%" stop-color="#1e3a8a" />
+    </radialGradient>
+
+    <radialGradient id="pinkGrad" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#fecdd3" />
+      <stop offset="35%" stop-color="#f43f5e" />
+      <stop offset="75%" stop-color="#be123c" />
+      <stop offset="100%" stop-color="#881337" />
+    </radialGradient>
+
+    <linearGradient id="sliderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#2563eb" />
+    </linearGradient>
+
+    <linearGradient id="pillGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#fb7185" />
+      <stop offset="100%" stop-color="#e11d48" />
+    </linearGradient>
+
+    <filter id="glowBlue" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#2563eb" flood-opacity="0.5" />
+    </filter>
+
+    <filter id="glowPink" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#f43f5e" flood-opacity="0.45" />
+    </filter>
+
+    <filter id="glowSoft" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.3" />
+    </filter>
+  </defs>
+
+  <!-- ── 1. Top Left Bezier Rail & Control Handles ── -->
+  <g opacity="0.95">
+    <line x1="45" y1="40" x2="115" y2="40" stroke="#64748b" stroke-width="1.5" stroke-dasharray="3 3" />
+    <rect x="42" y="37" width="6" height="6" fill="#ffffff" stroke="#2B4BEE" stroke-width="1.5" />
+    <rect x="112" y="37" width="6" height="6" fill="#ffffff" stroke="#2B4BEE" stroke-width="1.5" />
+    
+    <path d="M45 40 C 45 110, 140 125, 125 50 C 110 -5, 55 45, 95 125"
+      stroke="#ffffff" stroke-width="3" stroke-linecap="round" />
+    <path d="M45 40 C 45 110, 140 125, 125 50 C 110 -5, 55 45, 95 125"
+      stroke="#2B4BEE" stroke-width="1.5" stroke-linecap="round" opacity="0.6" />
+      
+    <circle cx="45" cy="40" r="4.5" fill="#ffffff" stroke="#2B4BEE" stroke-width="2" />
+    <circle cx="95" cy="125" r="4.5" fill="#ffffff" stroke="#2B4BEE" stroke-width="2" />
+
+    <!-- Animated Glowing Pink Orb along Bezier path -->
+    <g>
+      <circle r="11" fill="url(#pinkGrad)" filter="url(#glowPink)" />
+      <circle r="3.5" cx="-3" cy="-3" fill="#ffffff" opacity="0.8" />
+      <animateMotion dur="5.2s" repeatCount="indefinite"
+        path="M45 40 C 45 110, 140 125, 125 50 C 110 -5, 55 45, 95 125 C 55 45, 110 -5, 125 50 C 140 125, 45 110, 45 40"
+        keyTimes="0; 0.5; 1" keySplines="0.45 0 0.55 1; 0.45 0 0.55 1" calcMode="spline" />
+    </g>
+  </g>
+
+  <!-- ── 2. Top Center Goal Target & Animated Waving Flag ── -->
+  <rect x="215" y="34" width="50" height="50" rx="10" fill="#18181b" stroke="#52525b" stroke-dasharray="4 4" />
+  <rect x="225" y="44" width="30" height="30" rx="6" fill="#ffffff" />
+  
+  <!-- Checkmark Badge with gentle pulse -->
+  <g>
+    <circle cx="240" cy="59" r="10" fill="#00CC76" />
+    <path d="M236 59.2 L238.8 62 L244.5 56.5" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+    <animateTransform attributeName="transform" type="scale"
+      values="1; 1.08; 1" dur="2.6s" repeatCount="indefinite"
+      additive="sum" transform-origin="240 59" />
+  </g>
+
+  <!-- Flagpole -->
+  <rect x="238.5" y="10" width="3" height="25" fill="#e4e4e7" />
+
+  <!-- Animated Waving Flag -->
+  <path d="M241.5 11 H265 L260 19 L265 27 H241.5 Z" fill="#00CC76">
+    <animate attributeName="d"
+      values="M241.5 11 H265 L260 19 L265 27 H241.5 Z; M241.5 11 H269 L263 19 L268 27 H241.5 Z; M241.5 11 H265 L260 19 L265 27 H241.5 Z"
+      dur="2.2s" repeatCount="indefinite" />
+  </path>
+
+  <!-- ── 3. Top Right Capsule Rail & Gliding Slider ── -->
+  <rect x="330" y="34" width="124" height="28" rx="14" stroke="#ffffff" stroke-width="3" fill="rgba(255,255,255,0.03)" />
+  <rect x="327" y="31" width="130" height="34" rx="17" stroke="#2B4BEE" stroke-width="1.2" opacity="0.8" />
+  <rect x="324" y="28" width="6" height="6" fill="#ffffff" stroke="#2B4BEE" stroke-width="1.5" />
+  <rect x="324" y="58" width="6" height="6" fill="#ffffff" stroke="#2B4BEE" stroke-width="1.5" />
+  <rect x="454" y="28" width="6" height="6" fill="#ffffff" stroke="#2B4BEE" stroke-width="1.5" />
+  <rect x="454" y="58" width="6" height="6" fill="#ffffff" stroke="#2B4BEE" stroke-width="1.5" />
+
+  <!-- Animated Slider Block -->
+  <g>
+    <rect x="0" y="37" width="36" height="22" rx="11" fill="url(#sliderGrad)" filter="url(#glowBlue)" />
+    <circle cx="18" cy="48" r="3.5" fill="#ffffff" opacity="0.8" />
+    <animateTransform attributeName="transform" type="translate"
+      values="334 0; 414 0; 334 0" dur="4.2s" repeatCount="indefinite"
+      keyTimes="0; 0.5; 1" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" calcMode="spline" />
+  </g>
+
+  <!-- ── 4. Main Prominent Curved Gravity Rail (Center) ── -->
+  <line x1="60" y1="230" x2="420" y2="230" stroke="#334155" stroke-width="1" stroke-dasharray="4 4" opacity="0.4" />
+  
+  <path d="M65 145 C 120 255, 360 255, 415 145"
+    stroke="#ffffff" stroke-width="5" stroke-linecap="round" />
+  <path d="M65 145 C 120 255, 360 255, 415 145"
+    stroke="#2B4BEE" stroke-width="2" stroke-linecap="round" opacity="0.7" />
+
+  <!-- Rail Terminal Knobs -->
+  <circle cx="65" cy="145" r="6" fill="#ffffff" stroke="#2B4BEE" stroke-width="2.5" />
+  <circle cx="240" cy="228" r="6" fill="#2B4BEE" stroke="#ffffff" stroke-width="2.5" />
+  <circle cx="415" cy="145" r="6" fill="#ffffff" stroke="#2B4BEE" stroke-width="2.5" />
+
+  <!-- PROMINENT LARGE ROLLING PHYSICS BALL (R = 21px, big, vibrant, glowing) -->
+  <g>
+    <circle r="21" fill="url(#ballGrad)" filter="url(#glowBlue)" />
+    <circle r="6" cx="-6" cy="-6" fill="#ffffff" opacity="0.8" />
+    <animateMotion dur="3.6s" repeatCount="indefinite"
+      path="M 75 139 C 130 227, 350 227, 405 139 C 350 227, 130 227, 75 139"
+      keyTimes="0; 0.5; 1" keySplines="0.36 0 0.64 1; 0.36 0 0.64 1" calcMode="spline" />
+  </g>
+
+  <!-- ── 5. Bottom Left Angled Ramp & Rolling Marble ── -->
+  <g>
+    <rect x="35" y="292" width="130" height="22" rx="11" transform="rotate(16 35 292)" stroke="#f43f5e" stroke-width="2" fill="rgba(244,63,94,0.04)" />
+    <circle cx="40" cy="305" r="6" fill="#ffffff" stroke="#f43f5e" stroke-width="2" />
+    <circle cx="160" cy="340" r="6" fill="#ffffff" stroke="#f43f5e" stroke-width="2" />
+
+    <!-- Marble rolling up and down ramp -->
+    <g>
+      <circle r="9" fill="#ffffff" filter="url(#glowBlue)" />
+      <circle r="3" cx="-2" cy="-2" fill="#2563eb" />
+      <animateMotion dur="3s" repeatCount="indefinite"
+        path="M 44 306 L 152 337 L 44 306"
+        keyTimes="0; 0.5; 1" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" calcMode="spline" />
+    </g>
+  </g>
+
+  <!-- ── 6. Prominent Rocking See-Saw Balance Beam (Bottom Right) ── -->
+  <g>
+    <!-- Fulcrum Triangle & Center Pivot Circle at (330, 318) -->
+    <polygon points="320,332 340,332 330,318" fill="#64748b" />
+    <circle cx="330" cy="318" r="11" stroke="#ffffff" stroke-width="5" fill="#09090b" />
+
+    <!-- Rocking Beam with Pink Pill on Left & Blue Sphere on Right -->
+    <g>
+      <!-- The Balanced Beam (width: 250px) -->
+      <rect x="205" y="312" width="250" height="12" rx="6" fill="#ffffff" stroke="#2B4BEE" stroke-width="1.5" />
+      <circle cx="215" cy="318" r="3.5" fill="#2B4BEE" />
+      <circle cx="445" cy="318" r="3.5" fill="#2B4BEE" />
+
+      <!-- Left Weight: Pink Pill -->
+      <rect x="218" y="293" width="38" height="19" rx="9.5" fill="url(#pillGrad)" filter="url(#glowPink)" />
+      <circle cx="237" cy="302" r="3" fill="#ffffff" opacity="0.75" />
+
+      <!-- Right Weight: Blue Sphere -->
+      <circle cx="434" cy="302" r="12" fill="url(#ballGrad)" filter="url(#glowBlue)" />
+      <circle cx="430" cy="298" r="3" fill="#ffffff" opacity="0.75" />
+
+      <!-- Smooth Counterbalanced Rocking Motion around Fulcrum (330, 318) -->
+      <animateTransform attributeName="transform" type="rotate"
+        values="-11 330 318; 9 330 318; -11 330 318" dur="4.6s" repeatCount="indefinite"
+        keyTimes="0; 0.5; 1" keySplines="0.45 0 0.55 1; 0.45 0 0.55 1" calcMode="spline" />
+    </g>
+  </g>
+</svg>

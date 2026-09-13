@@ -308,6 +308,7 @@
 @media (max-width: 1023px) {
   .hero-mobile-illustration {
     display: block;
+    margin-top: 32px;
   }
 }
 
@@ -317,6 +318,158 @@
   height: auto;
   display: block;
   margin: 0 auto;
+}
+
+@media (max-width: 1023px) {
+  .hero-stage-1 .hero-mobile-illustration img {
+    animation: mobileHeroFloat1 5.5s ease-in-out infinite alternate;
+    will-change: transform, filter;
+  }
+  .hero-stage-2 .hero-mobile-illustration img {
+    animation: mobileHeroFloat2 6.5s ease-in-out infinite alternate;
+    will-change: transform, filter;
+  }
+  .hero-stage-3 .hero-mobile-illustration img {
+    animation: mobileHeroFloat3 7.5s ease-in-out infinite alternate;
+    will-change: transform, filter;
+  }
+}
+
+/* ── Mobile Hero Drop an Email CTA (100% Isolated to Mobile) ── */
+.hero-mobile-cta-group {
+  display: none !important;
+}
+
+@media (max-width: 1023px) {
+  .hero-mobile-cta-group {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 24px auto 0;
+    max-width: 380px;
+    width: 100%;
+    position: relative;
+    z-index: 10;
+  }
+
+  .hero-mobile-email-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    min-width: 0;
+    background: linear-gradient(135deg, rgba(43, 75, 238, 0.22) 0%, rgba(238, 43, 108, 0.16) 100%), #0c0f24;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 14px;
+    padding: 12px 16px;
+    color: #ffffff;
+    text-decoration: none;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .hero-mobile-email-btn:active {
+    transform: scale(0.97);
+    border-color: rgba(43, 75, 238, 0.8);
+    background: linear-gradient(135deg, rgba(43, 75, 238, 0.35) 0%, rgba(238, 43, 108, 0.25) 100%), #0c0f24;
+  }
+
+  .hero-mobile-email-btn svg {
+    color: #38bdf8;
+    flex-shrink: 0;
+  }
+
+  .hero-mobile-email-text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    text-align: left;
+  }
+
+  .hero-mobile-email-label {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  .hero-mobile-email-addr {
+    font-size: 0.76rem;
+    font-family: var(--font-mono, monospace);
+    color: #93c5fd;
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .hero-mobile-arrow {
+    color: rgba(255, 255, 255, 0.5) !important;
+    margin-left: auto;
+    flex-shrink: 0;
+    transition: transform 0.2s ease, color 0.2s ease;
+  }
+
+  .hero-mobile-email-btn:hover .hero-mobile-arrow,
+  .hero-mobile-email-btn:active .hero-mobile-arrow {
+    transform: translateX(3px);
+    color: #ffffff !important;
+  }
+
+  .hero-mobile-quick-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    color: #ffffff;
+    cursor: pointer;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  .hero-mobile-quick-copy svg {
+    color: #cbd5e1;
+    transition: transform 0.2s ease, color 0.2s ease;
+  }
+
+  .hero-mobile-quick-copy .copy-feedback-text {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: rgba(255, 255, 255, 0.7);
+    transition: color 0.2s ease;
+  }
+
+  .hero-mobile-quick-copy:active {
+    transform: scale(0.92);
+    background: rgba(43, 75, 238, 0.25);
+    border-color: #2b4bee;
+  }
+
+  .hero-mobile-quick-copy.is-copied {
+    background: rgba(34, 197, 94, 0.2) !important;
+    border-color: #22c55e !important;
+  }
+
+  .hero-mobile-quick-copy.is-copied svg {
+    color: #22c55e !important;
+  }
+
+  .hero-mobile-quick-copy.is-copied .copy-feedback-text {
+    color: #22c55e !important;
+  }
 }
 
 /* ── Right Column: 3000px Continuous Rive Artboard ── */
@@ -644,10 +797,22 @@
 
 .services-mobile-illustration img {
   width: 100%;
-  max-width: 540px;
+  max-width: 440px;
   height: auto;
   display: block;
   margin: 0 auto;
+}
+
+@media (max-width: 1023px) {
+  .service-web-design-illustration img {
+    max-width: 380px;
+    animation: mobileHeroFloat1 5.5s ease-in-out infinite alternate;
+    will-change: transform, filter;
+  }
+  .services-block:last-of-type .services-mobile-illustration img {
+    animation: mobileServiceFloat2 6.5s ease-in-out infinite alternate;
+    will-change: transform, filter;
+  }
 }
 
 /* ── Services 2050px Rive Canvas (Desktop) ── */
@@ -3024,6 +3189,28 @@
     display: none;
   }
 
+  .status-beacon {
+    display: none;
+  }
+
+  .header-actions {
+    gap: 8px;
+  }
+
+  .brand-logo {
+    gap: 8px;
+  }
+
+  .brand-name {
+    font-size: 1.15rem;
+  }
+
+  #headerStartProjectBtn {
+    padding: 8px 14px;
+    font-size: 0.82rem;
+    white-space: nowrap;
+  }
+
   .mobile-menu-toggle {
     display: flex;
   }
@@ -3031,17 +3218,24 @@
   .mobile-drawer {
     position: fixed;
     inset: 0;
-    background-color: var(--color-bg);
-    z-index: 99;
+    background-color: #050614;
+    z-index: 999;
     display: flex;
     flex-direction: column;
-    padding: 100px 24px 40px;
-    transform: translateY(-100%);
-    transition: transform 0.4s var(--ease-spring);
+    padding: 96px 24px 40px;
+    transform: translateY(-110%);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, visibility 0.35s;
+    overflow-y: auto;
   }
 
   .mobile-drawer.is-open {
     transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
   }
 
   .mobile-drawer-links {

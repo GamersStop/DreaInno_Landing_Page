@@ -318,10 +318,10 @@
     rel="stylesheet">
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="css/variables.css?v=v18">
-  <link rel="stylesheet" href="css/base.css?v=v18">
-  <link rel="stylesheet" href="css/animations.css?v=v18">
-  <link rel="stylesheet" href="css/components.css?v=v18">
+  <link rel="stylesheet" href="css/variables.css?v=v22">
+  <link rel="stylesheet" href="css/base.css?v=v22">
+  <link rel="stylesheet" href="css/animations.css?v=v22">
+  <link rel="stylesheet" href="css/components.css?v=v22">
 </head>
 
 <body>
@@ -364,11 +364,17 @@
   <!-- Mobile Drawer Menu -->
   <div class="mobile-drawer" id="mobileDrawer">
     <div
-      style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
-      <span class="brand-mark-wrap">
-        <img src="assets/brand/dreainno-mark-white.png" alt="DreaInno Brand Mark" class="brand-mark-img">
+      style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span class="brand-mark-wrap">
+          <img src="assets/brand/dreainno-mark-white.png" alt="DreaInno Brand Mark" class="brand-mark-img">
+        </span>
+        <span class="brand-name" style="font-size: 1.15rem;">DreaInno</span>
+      </div>
+      <span class="status-beacon" style="display: inline-flex;">
+        <span class="status-dot"></span>
+        Q3/Q4 Open
       </span>
-      <span class="brand-name" style="font-size: 1.15rem;">DreaInno</span>
     </div>
     <div class="mobile-drawer-links">
       <a href="#services">Services</a>
@@ -404,7 +410,31 @@
               A marketing website is a complex thing to build on your own
             </h1>
             <div class="hero-mobile-illustration" aria-hidden="true">
-              <img src="assets/lg-illustration-1.svg" width="468" height="380" alt="Hero Illustration 1" loading="lazy">
+              <img src="assets/hero-window.svg?v=v22" width="468" height="380" alt="PixelPoint Mobile Hero Window Illustration" loading="lazy">
+            </div>
+            <!-- Mobile-only Instant Email CTA (Zero Desktop Footprint) -->
+            <div class="hero-mobile-cta-group">
+              <a href="mailto:admin@dreainno.website?subject=Project%20Inquiry%20%E2%80%94%20DreaInno" class="hero-mobile-email-btn" aria-label="Drop an email to admin@dreainno.website">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                </svg>
+                <div class="hero-mobile-email-text">
+                  <span class="hero-mobile-email-label">✉️ Drop an Email</span>
+                  <span class="hero-mobile-email-addr">admin@dreainno.website</span>
+                </div>
+                <svg class="hero-mobile-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14"></path>
+                  <path d="m12 5 7 7-7 7"></path>
+                </svg>
+              </a>
+              <button type="button" class="hero-mobile-quick-copy" id="heroMobileCopyEmailBtn" title="Copy email address" aria-label="Copy admin@dreainno.website to clipboard">
+                <svg class="copy-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
+                  <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
+                </svg>
+                <span class="copy-feedback-text">Copy</span>
+              </button>
             </div>
           </div>
 
@@ -636,9 +666,9 @@
             media covers, and high-quality branded items.
           </p>
           <a href="#workflow" class="service-link">Read more →</a>
-          <div class="services-mobile-illustration" aria-hidden="true">
-            <img src="assets/lg-illustration-1.svg" width="1544" height="658" loading="lazy"
-              alt="Web Design Illustration">
+          <div class="services-mobile-illustration service-web-design-illustration" aria-hidden="true">
+            <img src="assets/hero-window.svg?v=v23" width="468" height="380" loading="lazy"
+              alt="Web Design Interactive Window Illustration">
           </div>
         </div>
 
@@ -2124,8 +2154,8 @@
     }
   </script>
   <script src="js/rive-data.js"></script>
-  <script src="js/animations.js?v=v18"></script>
-  <script src="js/main.js?v=v18"></script>
+  <script src="js/animations.js?v=v22"></script>
+  <script src="js/main.js?v=v22"></script>
 </body>
 
 </html>

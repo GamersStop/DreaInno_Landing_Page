@@ -1,0 +1,39 @@
+# robots.txt for https://dreainno.website/
+# https://www.robotstxt.org/robotstxt.html
+
+# Standard Crawlers
+User-agent: *
+Allow: /
+Disallow: /scratch/
+
+# AI Search & Retrieval Bots (Generative Engine Optimization)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+# Sitemap Location
+Sitemap: https://dreainno.website/sitemap.xml
+
+# LLMs Text Standard (for AI Agents & Search Engines)
+# Reference: https://llmstxt.org/
+# LLMs: https://dreainno.website/llms.txt

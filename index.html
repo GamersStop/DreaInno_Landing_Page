@@ -1974,7 +1974,7 @@
               <form id="directContactForm" class="cta-direct-form" novalidate>
                 <!-- Anti-bot honeypot -->
                 <input type="text" name="_gotcha" style="display:none !important" tabindex="-1" autocomplete="off">
-                <input type="hidden" name="budget" id="ctaSelectedBudget" value="$10k – $25k">
+                <input type="hidden" name="budget" id="ctaSelectedBudget" value="">
 
                 <div class="cta-form-row">
                   <div class="cta-form-group">
@@ -2000,18 +2000,6 @@
                       <option value="AI / LLM & Security Integration">AI / LLM &amp; Security Integration</option>
                       <option value="General Collaboration / Consulting">General Collaboration / Consulting</option>
                     </select>
-                  </div>
-                </div>
-
-                <div class="cta-form-group">
-                  <label class="cta-form-label">Estimated Investment</label>
-                  <div class="cta-budget-chips" id="ctaBudgetChips">
-                    <button type="button" class="cta-chip" data-budget="Below $1k">Below $1k</button>
-                    <button type="button" class="cta-chip" data-budget="$1k – $5k">$1k – $5k</button>
-                    <button type="button" class="cta-chip" data-budget="$5k – $10k">$5k – $10k</button>
-                    <button type="button" class="cta-chip is-active" data-budget="$10k – $25k">$10k – $25k</button>
-                    <button type="button" class="cta-chip" data-budget="$25k – $50k">$25k – $50k</button>
-                    <button type="button" class="cta-chip" data-budget="$50k+">$50k+</button>
                   </div>
                 </div>
 
@@ -2084,8 +2072,7 @@
         respond within 24 hours.</p>
 
       <form id="inquiryForm">
-        <input type="hidden" id="selectedBudget" name="budget" value="10k-25k">
-
+        <input type="hidden" id="selectedBudget" name="budget" value="">
         <div class="form-group">
           <label class="form-label" for="clientName">Your Name</label>
           <input class="form-input" type="text" id="clientName" name="name" required placeholder="e.g. Alex Rivera">
@@ -2094,15 +2081,6 @@
         <div class="form-group">
           <label class="form-label" for="clientEmail">Work Email</label>
           <input class="form-input" type="email" id="clientEmail" name="email" required placeholder="alex@company.com">
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Estimated Investment</label>
-          <div class="budget-options">
-            <div class="budget-chip active" data-budget="10k-25k">$10k – $25k</div>
-            <div class="budget-chip" data-budget="25k-50k">$25k – $50k</div>
-            <div class="budget-chip" data-budget="50k+">$50k+</div>
-          </div>
         </div>
 
         <div class="form-group">

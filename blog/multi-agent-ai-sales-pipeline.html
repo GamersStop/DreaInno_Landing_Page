@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CS84PPLY54"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-CS84PPLY54');
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Multi-Agent AI Workflows: Automating Your Sales Pipeline Without Losing the Human Touch | DreaInno</title>
+  <meta name="description" content="Discover how to build specialized multi-agent AI systems that automate B2B lead enrichment, qualification, and hyper-personalized outreach with human-in-the-loop safeguards.">
+  <meta name="keywords" content="multi-agent AI workflows, autonomous sales pipeline, AI lead triage, LangGraph sales automation, human-in-the-loop AI, B2B AI orchestration, FastAPI AI agent architecture">
+  <meta name="author" content="Mayuresh Pandit">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+
+  <!-- Canonical & Alternate -->
+  <link rel="canonical" href="https://dreainno.website/blog/multi-agent-ai-sales-pipeline.html">
+  <link rel="alternate" hreflang="en-US" href="https://dreainno.website/blog/multi-agent-ai-sales-pipeline.html">
+  <link rel="alternate" hreflang="en-GB" href="https://dreainno.website/blog/multi-agent-ai-sales-pipeline.html">
+  <link rel="alternate" hreflang="en-CA" href="https://dreainno.website/blog/multi-agent-ai-sales-pipeline.html">
+  <link rel="alternate" hreflang="x-default" href="https://dreainno.website/blog/multi-agent-ai-sales-pipeline.html">
+
+  <!-- GEO Optimization Signals -->
+  <meta name="chatgpt-fts:indexing" content="allow">
+  <meta name="geo.region" content="US;GB;CA;EU">
+  <meta name="geo.position" content="37.7749;-122.4194">
+  <meta name="ICBM" content="37.7749, -122.4194">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://dreainno.website/blog/multi-agent-ai-sales-pipeline.html">
+  <meta property="og:title" content="Multi-Agent AI Workflows: Automating Your Sales Pipeline Without Losing the Human Touch | DreaInno">
+  <meta property="og:description" content="Generic spam bots destroy brand equity. Learn how to architect multi-agent systems with specialized triage, enrichment, and human verification checkpoints.">
+  <meta property="og:image" content="https://dreainno.website/assets/brand/dreainno-og-card.png">
+  <meta property="og:site_name" content="DreaInno">
+  <meta property="article:published_time" content="2026-09-20T08:00:00Z">
+  <meta property="article:modified_time" content="2026-09-20T08:00:00Z">
+  <meta property="article:author" content="https://dreainno.website/about.html#founder">
+  <meta property="article:section" content="Artificial Intelligence & Automation">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@dreainno">
+  <meta name="twitter:creator" content="@dreainno">
+  <meta name="twitter:title" content="Multi-Agent AI Workflows: Automating Your Sales Pipeline Without Losing the Human Touch">
+  <meta name="twitter:description" content="Architecting autonomous B2B sales engines with multi-agent orchestration, FastAPI, and human-in-the-loop controls.">
+  <meta name="twitter:image" content="https://dreainno.website/assets/brand/dreainno-og-card.png">
+
+  <!-- Favicon & Web Manifest -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/brand/dreainno-mark-white.png">
+  <link rel="apple-touch-icon" href="../assets/brand/dreainno-mark-white.png">
+  <link rel="manifest" href="../site.webmanifest">
+  <meta name="theme-color" content="#09090b">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="../css/variables.css?v=v24">
+  <link rel="stylesheet" href="../css/base.css?v=v24">
+  <link rel="stylesheet" href="../css/components.css?v=v24">
+  <link rel="stylesheet" href="../css/blog.css?v=v1">
+
+  <!-- Structured Data JSON-LD (Article + FAQ) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "@id": "https://dreainno.website/blog/multi-agent-ai-sales-pipeline.html#article",
+        "isPartOf": {
+          "@type": "WebPage",
+          "@id": "https://dreainno.website/blog/multi-agent-ai-sales-pipeline.html"
+        },
+        "headline": "Multi-Agent AI Workflows: Automating Your Sales Pipeline Without Losing the Human Touch",
+        "description": "Discover how to build specialized multi-agent AI systems that automate B2B lead enrichment, qualification, and hyper-personalized outreach with human-in-the-loop safeguards.",
+        "url": "https://dreainno.website/blog/multi-agent-ai-sales-pipeline.html",
+        "datePublished": "2026-09-20T08:00:00Z",
+        "dateModified": "2026-09-20T08:00:00Z",
+        "inLanguage": "en-US",
+        "author": {
+          "@type": "Person",
+          "name": "Mayuresh Pandit",
+          "jobTitle": "Founder & Principal Systems Architect",
+          "url": "https://dreainno.website/about.html#founder"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "DreaInno",
+          "url": "https://dreainno.website/",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://dreainno.website/assets/brand/dreainno-mark-white.png"
+          }
+        },
+        "keywords": ["multi-agent AI", "sales automation", "human-in-the-loop", "LangGraph", "FastAPI", "B2B sales workflow", "AI triage"],
+        "articleSection": "Artificial Intelligence"
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://dreainno.website/blog/multi-agent-ai-sales-pipeline.html#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is a multi-agent AI workflow in B2B sales?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A multi-agent AI workflow replaces single, generic prompts with specialized autonomous sub-agents. One agent extracts inbound signals, a second crawls company data, a third analyzes architectural compatibility, and a fourth drafts tailored outreach for human review."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why is Human-in-the-Loop (HITL) mandatory in high-ticket sales automation?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Fully autonomous outbound bots frequently produce awkward phrasing, hallucinated pricing, or misaligned claims that damage enterprise buyer trust. HITL keeps founders or senior account executives in full control of the final send button while eliminating 85% of preparation busywork."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What tech stack powers robust multi-agent systems?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Enterprise pipelines rely on Python with FastAPI for asynchronous webhook handling, LangGraph or temporal workflows for state machines, Redis/PostgreSQL for persistent session memory, and deterministic temperature controls on underlying LLMs (Claude 3.5 Sonnet, GPT-4o)."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+
+<body>
+  <!-- Reading Progress Bar -->
+  <div class="reading-progress-container">
+    <div class="reading-progress-bar" id="readingProgressBar"></div>
+  </div>
+
+  <!-- Site Header -->
+  <header class="site-header" id="siteHeader">
+    <div class="container header-inner">
+      <a href="../index.html" class="brand-logo" aria-label="DreaInno Home">
+        <span class="brand-mark-wrap">
+          <img src="../assets/brand/dreainno-mark-white.png" alt="DreaInno Brand Mark" class="brand-mark-img">
+        </span>
+        <span class="brand-name">DreaInno</span>
+      </a>
+
+      <nav class="desktop-nav" aria-label="Main Navigation">
+        <a href="../index.html#whatWeOffer" class="nav-link">What We Offer</a>
+        <a href="index.html" class="nav-link active">Blog</a>
+        <a href="../index.html#work" class="nav-link">Portfolio</a>
+        <a href="../index.html#globalDelivery" class="nav-link">Global Reach</a>
+        <a href="../about.html" class="nav-link">About Us</a>
+        <a href="../index.html#workflow" class="nav-link">Workflow</a>
+      </nav>
+
+      <div class="header-actions">
+        <span class="status-beacon">
+          <span class="status-dot"></span>
+          Q3/Q4 Open
+        </span>
+        <a href="../index.html#contact" class="btn-primary btn-magnetic" style="text-decoration: none;">
+          Start Project
+        </a>
+        <button type="button" class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle mobile menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-drawer" id="mobileDrawer">
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
+      <div style="display: flex; align-items: center; gap: 14px;">
+        <span class="brand-mark-wrap">
+          <img src="../assets/brand/dreainno-mark-white.png" alt="DreaInno Brand Mark" class="brand-mark-img">
+        </span>
+        <span class="brand-name" style="font-size: 1.15rem;">DreaInno</span>
+      </div>
+      <span class="status-beacon" style="display: inline-flex;">
+        <span class="status-dot"></span>
+        Q3/Q4 Open
+      </span>
+    </div>
+    <div class="mobile-drawer-links">
+      <a href="../index.html#whatWeOffer">What We Offer</a>
+      <a href="index.html">Blog</a>
+      <a href="../index.html#work">Portfolio</a>
+      <a href="../index.html#globalDelivery">Global Reach</a>
+      <a href="../about.html">About Us</a>
+      <a href="../index.html#workflow">Workflow</a>
+      <a href="../privacy.html">Privacy Policy</a>
+      <a href="../terms.html">Terms of Service</a>
+    </div>
+    <a href="../index.html#contact" class="btn-primary" style="width: 100%; text-align: center; padding: 14px 20px; display: block; text-decoration: none;">
+      Start Project
+    </a>
+  </div>
+
+  <main id="mainContent">
+    <article class="article-container">
+      <!-- Article Header -->
+      <header class="article-header">
+        <nav class="article-breadcrumb" aria-label="Breadcrumb">
+          <a href="../index.html">Home</a>
+          <span class="article-breadcrumb-sep">/</span>
+          <a href="index.html">Blog</a>
+          <span class="article-breadcrumb-sep">/</span>
+          <span>AI &amp; Workflows</span>
+        </nav>
+
+        <div class="article-meta-tags">
+          <span class="blog-badge green">Multi-Agent Systems</span>
+          <span class="blog-badge">Pipeline Automation</span>
+          <span class="blog-read-time">⏱️ 8 min read</span>
+          <span class="blog-publish-date">September 20, 2026</span>
+        </div>
+
+        <h1 class="article-title">
+          Multi-Agent AI Workflows: <span class="brand-glow-cyan">Automating Your Sales Pipeline Without Losing the Human Touch</span>
+        </h1>
+
+        <p class="article-intro">
+          We have all received those cringeworthy AI outreach emails: generic flattery, hallucinated job titles, and robotic cadence that immediately screams "unfiltered bot." High-ticket B2B deals are never won with spam. Here is how modern engineering leaders architect multi-agent systems that scale pipeline velocity while preserving executive-level human warmth.
+        </p>
+
+        <div class="article-author-card">
+          <div class="author-bio-left">
+            <img src="../assets/Mayuresh_Pandit.png" alt="Mayuresh Pandit" class="author-bio-img" loading="lazy">
+            <div class="author-bio-info">
+              <h4>Mayuresh Pandit</h4>
+              <p>Founder &amp; Principal Systems Architect, DreaInno</p>
+            </div>
+          </div>
+          <div class="article-quick-metrics">
+            <span>Distributed Agent Networks</span>
+            <span>•</span>
+            <span>High-Velocity Workflows</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Executive TL;DR Summary (GEO/AI Extraction Anchor) -->
+      <div class="article-callout">
+        <div class="callout-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+          Executive Summary
+        </div>
+        <p>
+          Multi-agent sales automation replaces monolithic chatbots with a coordinated graph of narrow, specialized agents: <strong>Triage</strong> (inbound classification), <strong>Enrichment</strong> (real-time tech stack &amp; business model discovery), and <strong>Synthesis</strong> (generating deep, contextual executive proposals). By incorporating a strict <strong>Human-in-the-Loop (HITL) approval gate</strong> via Slack or custom webhooks, sales teams reduce research time by 85% while boosting prospect reply rates to over 24%.
+        </p>
+      </div>
+
+      <!-- Article Body Content -->
+      <div class="article-body">
+        <h2>The Fallacy of the "All-in-One" AI Bot</h2>
+        <p>
+          In late 2023, thousands of businesses attempted to automate sales by wiring ChatGPT directly into their email servers. The results were disastrous: AI models hallucinated company policies, promised non-existent discounts, and sent tone-deaf emails to fortune 500 decision makers.
+        </p>
+        <p>
+          The failure was not in the intelligence of the model, but in the <strong>architecture of the system</strong>. Expecting a single prompt to simultaneously parse an inbound inquiry, research a company's SEC filings, evaluate technical architecture, and compose a closing argument is fundamentally flawed.
+        </p>
+        <p>
+          The solution is <strong>Multi-Agent Orchestration</strong>: breaking down complex sales pipelines into discrete, deterministic roles coordinated by a finite state machine.
+        </p>
+
+        <h2>Anatomy of an Enterprise Multi-Agent Sales Engine</h2>
+
+        <div class="article-table-wrap">
+          <table class="article-table">
+            <thead>
+              <tr>
+                <th>Agent Role</th>
+                <th>Primary Task</th>
+                <th>Tools &amp; APIs</th>
+                <th>Execution Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>1. Signal Triage Agent</strong></td>
+                <td>Extract intent, budget indicator, tech mentions, and urgency score from inbound brief</td>
+                <td>Regex parsing + Structured JSON Extraction (Pydantic)</td>
+                <td>&lt; 350ms</td>
+              </tr>
+              <tr>
+                <td><strong>2. Deep Research Agent</strong></td>
+                <td>Crawl prospect domain, inspect DNS/tech stack, pull LinkedIn organizational data</td>
+                <td>Headless Chromium + BuiltWith API + Clearbit</td>
+                <td>1.8s – 3.2s</td>
+              </tr>
+              <tr>
+                <td><strong>3. Solution Matcher Agent</strong></td>
+                <td>Cross-reference prospect bottlenecks against internal case studies &amp; architectural benchmarks</td>
+                <td>pgvector Vector Database + Semantic Search</td>
+                <td>400ms</td>
+              </tr>
+              <tr>
+                <td><strong>4. Executive Drafter Agent</strong></td>
+                <td>Synthesize factual insights into a warm, direct, peer-to-peer executive brief</td>
+                <td>Claude 3.5 Sonnet (Low temperature, zero filler)</td>
+                <td>1.4s</td>
+              </tr>
+              <tr>
+                <td><strong>5. Human Approval Gate</strong></td>
+                <td>Present interactive Slack/Teams card with "Approve", "Edit", or "Reject"</td>
+                <td>Slack Block Kit Webhooks + FastAPI endpoint</td>
+                <td>Human-driven (30s)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>Why Human-in-the-Loop (HITL) Is Non-Negotiable</h2>
+        <p>
+          Automating a sales pipeline should never mean firing emails into the void without supervision. If you sell services or software priced between $10,000 and $250,000, sending a single tone-deaf automated message burns that enterprise account permanently.
+        </p>
+        <p>
+          Instead of fully autonomous delivery, we architect <strong>Human-Assisted Acceleration</strong>:
+        </p>
+
+        <div class="article-code-block">
+          <div class="code-header">
+            <span>Workflow: Slack Interactive HITL Webhook Gate</span>
+            <span>python (FastAPI + LangGraph)</span>
+          </div>
+# Example: Pushing completed multi-agent brief to private founder Slack channel
+@app.post("/api/agents/triage-complete")
+async def handle_agent_triage(payload: ProspectDossier):
+    slack_card = {
+        "blocks": [
+            {"type": "header", "text": {"type": "plain_text", "text": f"🎯 New Lead: {payload.company_name} ({payload.deal_size})"}},
+            {"type": "section", "text": {"type": "mrkdwn", "text": f"*Identified Problem:* {payload.bottleneck_summary}\n*Matched Solution:* {payload.recommended_case_study}"}},
+            {"type": "section", "text": {"type": "mrkdwn", "text": f"*Drafted Executive Note:*\n>{payload.draft_body}"}},
+            {
+                "type": "actions",
+                "elements": [
+                    {"type": "button", "text": {"type": "plain_text", "text": "✅ Send as Founder"}, "style": "primary", "value": payload.lead_id},
+                    {"type": "button", "text": {"type": "plain_text", "text": "✏️ Edit Draft in Portal"}, "value": payload.lead_id},
+                    {"type": "button", "text": {"type": "plain_text", "text": "🗑️ Dismiss Lead"}, "style": "danger", "value": payload.lead_id}
+                ]
+            }
+        ]
+    }
+    await send_slack_notification(slack_card)
+        </div>
+
+        <p>
+          The founder or senior account executive taps a single button in Slack to approve the email. To the recipient, the message reads like a bespoke note crafted after 45 minutes of meticulous research. To your team, it required <strong>20 seconds of review</strong>.
+        </p>
+
+        <h2>Preventing "AI Slop": Strict Deterministic Guardrails</h2>
+        <p>
+          The difference between mediocre automation and enterprise-grade infrastructure lies in guardrails:
+        </p>
+        <ul>
+          <li><strong>Zero Unverified Claims:</strong> The drafting agent is constrained by strict system prompts forbidding speculation. If the research agent did not verify a fact, the drafting agent cannot mention it.</li>
+          <li><strong>Temperature Control:</strong> Setting LLM temperature between 0.1 and 0.2 for classification and 0.35 for drafting eliminates imaginative metaphors and keeps the tone crisp, technical, and grounded.</li>
+          <li><strong>Pydantic Data Contracts:</strong> Every agent outputs strictly validated JSON schema. If an agent outputs invalid fields, the LangGraph supervisor catches it and triggers an automatic retry.</li>
+        </ul>
+
+        <h2>Real Case Study: Scaling Inbound Pipeline for a FinTech Studio</h2>
+        <p>
+          A boutique FinTech consulting practice came to DreaInno overwhelmed by inbound inquiries. The founder spent 3 to 4 hours every evening reading company websites, checking tech stacks, and typing customized replies. Half of the inquiries were unvetted tire-kickers with $500 budgets.
+        </p>
+        <p>
+          We deployed a custom 4-agent FastAPI pipeline connected to their intake form and Slack:
+        </p>
+
+        <div class="article-callout green">
+          <div class="callout-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00cc76" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Impact Metrics Within 60 Days
+          </div>
+          <p>
+            • <strong>Founder Time Saved:</strong> Reduced daily manual triage from 3.5 hours to 18 minutes.<br>
+            • <strong>Speed to Lead:</strong> High-value enterprise prospects received a comprehensive, custom architectural review in under <strong>4 minutes</strong> (down from 24 hours).<br>
+            • <strong>Inbound Call Booking Rate:</strong> Jumped from 14% to <strong>31.8%</strong> due to rapid, hyper-relevant responses.
+          </p>
+        </div>
+
+        <!-- In-Article CTA -->
+        <div class="article-cta-box">
+          <span class="kicker-badge" style="margin-bottom: 14px; display: inline-flex;"><span class="kicker-beacon"></span>AUTONOMOUS WORKFLOWS</span>
+          <h3>Ready to Automate Your High-Ticket Deal Pipeline?</h3>
+          <p>
+            DreaInno architects production-grade multi-agent AI systems, custom internal tools, and high-throughput backend workflows for forward-thinking engineering and sales organizations.
+          </p>
+          <a href="../index.html#contact" class="btn-primary" style="padding: 14px 28px; font-size: 1rem; text-decoration: none; display: inline-block;">
+            Build a Custom Multi-Agent Workflow
+          </a>
+        </div>
+
+        <!-- FAQ Section -->
+        <section class="article-faq-section" id="faqSection">
+          <h3 style="font-size: 1.5rem; margin-bottom: 24px;">Frequently Asked Questions</h3>
+
+          <div class="faq-item-card">
+            <h4>Can multi-agent pipelines integrate with existing CRMs like HubSpot or Salesforce?</h4>
+            <p>
+              Yes. Agents communicate via standard REST/GraphQL webhooks. We routinely sync extracted lead scores, company tech stacks, and conversation histories directly into custom CRM fields with zero manual data entry.
+            </p>
+          </div>
+
+          <div class="faq-item-card">
+            <h4>How do we ensure confidential client data is not leaked into public LLM training?</h4>
+            <p>
+              All DreaInno enterprise pipelines utilize enterprise zero-data-retention APIs (such as Anthropic Claude Commercial API or Azure OpenAI Service). Data transmitted through these endpoints is never used to train public foundation models.
+            </p>
+          </div>
+
+          <div class="faq-item-card">
+            <h4>How long does it take to deploy a custom multi-agent system?</h4>
+            <p>
+              A tailored multi-agent sales or workflow automation system is typically built, tested, and integrated into production within 3 to 4 weeks.
+            </p>
+          </div>
+        </section>
+
+        <!-- Related Insights -->
+        <section class="related-posts-section">
+          <h3>Related Engineering Insights</h3>
+          <div class="related-posts-grid">
+            <a href="chatgpt-recommends-your-business.html" class="blog-card" style="padding: 24px;">
+              <span class="blog-badge">GEO &amp; AI</span>
+              <h4 style="color: #fff; font-size: 1.15rem; margin: 12px 0 8px;">How to Structure Your Website So ChatGPT Recommends Your Business</h4>
+              <p style="font-size: 0.88rem; color: #a1a1aa; line-height: 1.5;">Master Generative Engine Optimization and LLM citations.</p>
+            </a>
+            <a href="optimizing-heavy-duty-workflows.html" class="blog-card" style="padding: 24px;">
+              <span class="blog-badge green">Operations</span>
+              <h4 style="color: #fff; font-size: 1.15rem; margin: 12px 0 8px;">Optimizing Heavy-Duty Workflows to Accelerate Business Operations</h4>
+              <p style="font-size: 0.88rem; color: #a1a1aa; line-height: 1.5;">Bespoke browser extensions, database tuning, and high-speed middleware.</p>
+            </a>
+          </div>
+        </section>
+      </div>
+    </article>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-col">
+          <div class="brand-logo" style="margin-bottom: 16px;">
+            <span class="brand-mark-wrap">
+              <img src="../assets/brand/dreainno-mark-white.png" alt="DreaInno Brand Mark" class="brand-mark-img">
+            </span>
+            <span class="brand-name">DreaInno</span>
+          </div>
+          <p style="color: var(--color-text-secondary); max-width: 320px; line-height: 1.6; font-size: 0.925rem; margin-bottom: 20px;">
+            Design studio &amp; software engineering team dedicated to high-fidelity marketing sites, design systems, and digital ventures.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h5>Navigation</h5>
+          <ul class="footer-links">
+            <li><a href="index.html">Blog &amp; Insights</a></li>
+            <li><a href="../index.html#whatWeOffer">What We Offer</a></li>
+            <li><a href="../index.html#work">Portfolio</a></li>
+            <li><a href="../dreainno-vs-offshore.html">Dreainno vs Offshore</a></li>
+            <li><a href="../about.html">About Studio</a></li>
+            <li><a href="../privacy.html">Privacy Policy</a></li>
+            <li><a href="../terms.html">Terms of Service</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Ventures</h5>
+          <ul class="footer-links">
+            <li><a href="../about.html#fogo">Fogo Extension</a></li>
+            <li><a href="../about.html#ventures">Studio Labs</a></li>
+            <li><a href="https://github.com/dreainno" target="_blank" rel="noopener noreferrer">Open Source</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Studio Location</h5>
+          <div style="font-family: var(--font-mono); font-size: 0.9rem; color: #ffffff; margin-bottom: 8px;">
+            GLOBAL DISTRIBUTED
+          </div>
+          <div style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-accent-green);" id="studioClock">
+            --:--:-- UTC
+          </div>
+          <div style="margin-top: 16px;">
+            <a href="mailto:admin@dreainno.website" style="color: var(--color-accent-blue); font-size: 0.9rem;">admin@dreainno.website</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-bottom-left">
+          <span>© 2026 DreaInno Studio. All rights reserved.</span>
+          <span class="footer-legal-links">
+            <a href="../privacy.html" class="footer-legal-link">Privacy Policy</a>
+            <span class="footer-legal-divider">•</span>
+            <a href="../terms.html" class="footer-legal-link">Terms of Service</a>
+          </span>
+        </div>
+        <div class="footer-social-links" aria-label="Social Media Profiles">
+          <a href="https://github.com/GamersStop" target="_blank" rel="noopener noreferrer" class="footer-social-btn" aria-label="GitHub" title="GitHub">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/drea-inno-39314b39a/" target="_blank" rel="noopener noreferrer" class="footer-social-btn" aria-label="LinkedIn" title="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/blog.js?v=v1"></script>
+</body>
+
+</html>

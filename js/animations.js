@@ -358,7 +358,27 @@
     const items = [1, 2, 3, 4, 5, 6];
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
-    items.forEach(function (num, idx) {
+    const featuresSection = document.getElementById('features');
+    let sectionInView = true;
+
+    if (featuresSection && 'IntersectionObserver' in window) {
+      const sectionObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          const wasInView = sectionInView;
+          sectionInView = entry.isIntersecting;
+          if (sectionInView && !wasInView) {
+            featureRiveInstances.forEach(function (item) {
+              if (item && item.instance && !item.instance.isPlaying) {
+                item.replay();
+              }
+            });
+          }
+        });
+      }, { threshold: 0.05 });
+      sectionObserver.observe(featuresSection);
+    }
+
+    items.forEach(function (num) {
       const canvas = document.getElementById('featureCanvas' + num);
       if (!canvas) return;
 
@@ -368,6 +388,7 @@
       canvas.style.height = '62px';
 
       try {
+        let isResetting = false;
         const srcOpt = getRiveSource('f' + num, 'animations/pages/home/features/' + num + '.riv');
         const instance = new rive.Rive(Object.assign({}, srcOpt, {
           canvas: canvas,
@@ -379,33 +400,44 @@
           onLoad: function () {
             instance.resizeDrawingSurfaceToCanvas();
             if (typeof instance.play === 'function') instance.play();
+
+            // Continuous animation: when one-shot animation finishes, reset & replay continuously
+            if (typeof rive.EventType !== 'undefined' && rive.EventType.Stop) {
+              instance.on(rive.EventType.Stop, function () {
+                if (isResetting) return; // Prevent infinite event recursion from reset()
+                if (!sectionInView) return;
+                replay();
+              });
+            }
           }
         }));
 
-        featureRiveInstances.push(instance);
+        function replay() {
+          if (!instance) return;
+          isResetting = true;
+          if (typeof instance.reset === 'function') instance.reset();
+          if (typeof instance.play === 'function') instance.play();
+          requestAnimationFrame(function () {
+            isResetting = false;
+          });
+        }
+
+        featureRiveInstances.push({ instance: instance, replay: replay });
 
         const card = canvas.closest('.feature-item');
         if (card) {
-          function triggerPlay() {
-            if (instance && typeof instance.play === 'function') {
-              instance.play();
-            }
-          }
+          // Interactive triggers: hover / tap immediately restarts smoothly
+          card.addEventListener('mouseenter', replay);
+          card.addEventListener('pointerdown', replay);
+          card.addEventListener('touchstart', replay, { passive: true });
+          card.addEventListener('click', replay);
 
-          // Desktop hover
-          card.addEventListener('mouseenter', triggerPlay);
-
-          // Mobile touch and tap
-          card.addEventListener('pointerdown', triggerPlay);
-          card.addEventListener('touchstart', triggerPlay, { passive: true });
-          card.addEventListener('click', triggerPlay);
-
-          // Scroll trigger per card: play when scrolled into view
+          // Scroll trigger per card: ensure play when entering view
           if ('IntersectionObserver' in window) {
             const cardObserver = new IntersectionObserver(function (entries) {
               entries.forEach(function (entry) {
-                if (entry.isIntersecting) {
-                  triggerPlay();
+                if (entry.isIntersecting && !instance.isPlaying) {
+                  replay();
                 }
               });
             }, { threshold: 0.15 });
@@ -417,33 +449,15 @@
       }
     });
 
-    // Continuous loop: replay icons so they remain active on mobile & desktop
-    const featuresSection = document.getElementById('features');
-    let sectionInView = true;
-
-    if (featuresSection && 'IntersectionObserver' in window) {
-      const sectionObserver = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          sectionInView = entry.isIntersecting;
-          if (sectionInView) {
-            featureRiveInstances.forEach(function (inst) {
-              if (inst && typeof inst.play === 'function') inst.play();
-            });
-          }
-        });
-      }, { threshold: 0.05 });
-      sectionObserver.observe(featuresSection);
-    }
-
-    // Gentle auto-cycle every 3.5 seconds
+    // Fallback heartbeat: ensure all 6 instances loop continuously without interruption
     setInterval(function () {
       if (!sectionInView || !featureRiveInstances.length) return;
-      featureRiveInstances.forEach(function (inst) {
-        if (inst && typeof inst.play === 'function') {
-          inst.play();
+      featureRiveInstances.forEach(function (item) {
+        if (item && item.instance && !item.instance.isPlaying) {
+          item.replay();
         }
       });
-    }, 3500);
+    }, 2000);
   }
 
 
@@ -1713,6 +1727,307 @@
 
 
   /* ============================================================
+     GLOBAL 3D INTERACTIVE BACKGROUND ENGINE
+     Viewport-wide 3D perspective grid tilt, reactive spotlight,
+     floating particle constellation, active everywhere apart from footer
+     ============================================================ */
+  function initHeroBackgroundParticles() {
+    const canvas = document.getElementById('heroParticlesCanvas');
+    const bgWrapper = document.getElementById('globalBgWrapper') || document.getElementById('heroStory');
+    const gridPlane = document.getElementById('hero3dGridPlane');
+    const footer = document.querySelector('.site-footer');
+    if (!canvas || !bgWrapper) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let width = 0;
+    let height = 0;
+    let dpr = 1;
+    let particles = [];
+    let animationFrameId = null;
+    let isVisible = true;
+
+    const STAGE_OFFSET = 60; // offset for the -60px 3D stage inset
+
+    // Mouse tracking with smooth lerp
+    let targetMouseX = -9999;
+    let targetMouseY = -9999;
+    let currentMouseX = -9999;
+    let currentMouseY = -9999;
+    let isMouseOver = false;
+    const mouse = { x: -9999, y: -9999, radius: 140 };
+
+    // 3D Tilt angles (in degrees)
+    let targetTiltX = 0;
+    let targetTiltY = 0;
+    let currentTiltX = 0;
+    let currentTiltY = 0;
+
+    function resize() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.scale(dpr, dpr);
+
+      initParticles();
+    }
+
+    function initParticles() {
+      particles = [];
+      const isMobile = width < 768;
+      const count = isMobile ? 35 : Math.min(75, Math.max(40, Math.floor((width * height) / 22000)));
+
+      const colors = [
+        'rgba(147, 197, 253, ',
+        'rgba(96, 165, 250, ',
+        'rgba(191, 219, 254, ',
+        'rgba(255, 255, 255, '
+      ];
+
+      for (let i = 0; i < count; i++) {
+        const radius = Math.random() * 1.8 + 0.8;
+        const colorPrefix = colors[Math.floor(Math.random() * colors.length)];
+        const alpha = Math.random() * 0.45 + 0.25;
+        const pulseSpeed = Math.random() * 0.02 + 0.008;
+
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          rx: 0,
+          ry: 0,
+          vx: (Math.random() - 0.5) * 0.4,
+          vy: (Math.random() - 0.5) * 0.4,
+          radius: radius,
+          baseAlpha: alpha,
+          alpha: alpha,
+          pulseSpeed: pulseSpeed,
+          pulseAngle: Math.random() * Math.PI * 2,
+          colorPrefix: colorPrefix
+        });
+      }
+    }
+
+    function updateParticles(normX, normY) {
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+
+        // Gentle breathing pulse
+        p.pulseAngle += p.pulseSpeed;
+        p.alpha = p.baseAlpha + Math.sin(p.pulseAngle) * 0.18;
+
+        // Position drift
+        p.x += p.vx;
+        p.y += p.vy;
+
+        // Gentle cursor repulsion
+        if (mouse.x > -100) {
+          const dx = p.x - mouse.x;
+          const dy = p.y - mouse.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < mouse.radius && dist > 0) {
+            const force = (mouse.radius - dist) / mouse.radius;
+            p.x += (dx / dist) * force * 1.8;
+            p.y += (dy / dist) * force * 1.8;
+          }
+        }
+
+        // Screen boundary wrap
+        if (p.x < -10) p.x = width + 10;
+        else if (p.x > width + 10) p.x = -10;
+        if (p.y < -10) p.y = height + 10;
+        else if (p.y > height + 10) p.y = -10;
+
+        // Volumetric 3D Parallax offset (foreground shifts more)
+        const depthShift = (p.radius / 2.6) * 14;
+        p.rx = p.x + (normX * depthShift);
+        p.ry = p.y + (normY * depthShift);
+      }
+    }
+
+    function render() {
+      ctx.clearRect(0, 0, width, height);
+
+      // Draw delicate constellation connecting links using 3D projected coords
+      const maxDistance = width < 768 ? 85 : 115;
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const p1 = particles[i];
+          const p2 = particles[j];
+          const dx = p1.rx - p2.rx;
+          const dy = p1.ry - p2.ry;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < maxDistance) {
+            const lineAlpha = (1 - dist / maxDistance) * 0.16;
+            ctx.beginPath();
+            ctx.moveTo(p1.rx, p1.ry);
+            ctx.lineTo(p2.rx, p2.ry);
+            ctx.strokeStyle = 'rgba(96, 165, 250, ' + lineAlpha + ')';
+            ctx.lineWidth = 0.85;
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Draw active magnetic beams to cursor when hovering
+      if (isMouseOver && mouse.x > -100) {
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+          const dx = p.rx - mouse.x;
+          const dy = p.ry - mouse.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 150) {
+            const beamAlpha = (1 - dist / 150) * 0.32;
+            ctx.beginPath();
+            ctx.moveTo(mouse.x, mouse.y);
+            ctx.lineTo(p.rx, p.ry);
+            ctx.strokeStyle = 'rgba(56, 189, 248, ' + beamAlpha + ')';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+          }
+        }
+
+        // Delicate illuminated cursor focal node
+        ctx.beginPath();
+        ctx.arc(mouse.x, mouse.y, 3, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(56, 189, 248, 0.75)';
+        ctx.shadowColor = 'rgba(56, 189, 248, 0.9)';
+        ctx.shadowBlur = 8;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      }
+
+      // Draw glowing particles
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+        ctx.beginPath();
+        ctx.arc(p.rx, p.ry, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = p.colorPrefix + Math.max(0.1, Math.min(1, p.alpha)) + ')';
+        ctx.shadowColor = 'rgba(96, 165, 250, 0.6)';
+        ctx.shadowBlur = p.radius > 1.8 ? 6 : 3;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      }
+    }
+
+    function loop() {
+      if (isVisible) {
+        let normX = 0;
+        let normY = 0;
+
+        if (isMouseOver && targetMouseX > -100) {
+          if (currentMouseX < -100) {
+            currentMouseX = targetMouseX;
+            currentMouseY = targetMouseY;
+          } else {
+            currentMouseX += (targetMouseX - currentMouseX) * 0.18;
+            currentMouseY += (targetMouseY - currentMouseY) * 0.18;
+          }
+
+          // Calculate normalized coordinates (-1 to +1) from viewport center
+          const halfW = width / 2;
+          const halfH = height / 2;
+          normX = Math.max(-1, Math.min(1, (currentMouseX - halfW) / (halfW || 1)));
+          normY = Math.max(-1, Math.min(1, (currentMouseY - halfH) / (halfH || 1)));
+
+          // 3D banking tilt angles (tilt towards mouse)
+          targetTiltY = normX * 8.5;  // horizontal yaw rotation
+          targetTiltX = -normY * 7.0; // vertical pitch rotation
+
+          // Update CSS custom properties for 3D spotlight alignment on bgWrapper
+          bgWrapper.style.setProperty('--plane-mouse-x', (currentMouseX + STAGE_OFFSET).toFixed(1) + 'px');
+          bgWrapper.style.setProperty('--plane-mouse-y', (currentMouseY + STAGE_OFFSET).toFixed(1) + 'px');
+          bgWrapper.style.setProperty('--mouse-x', currentMouseX.toFixed(1) + 'px');
+          bgWrapper.style.setProperty('--mouse-y', currentMouseY.toFixed(1) + 'px');
+          mouse.x = currentMouseX;
+          mouse.y = currentMouseY;
+        } else {
+          targetTiltX = 0;
+          targetTiltY = 0;
+          mouse.x = -9999;
+          mouse.y = -9999;
+        }
+
+        // Smooth 3D tilt interpolation
+        currentTiltX += (targetTiltX - currentTiltX) * 0.12;
+        currentTiltY += (targetTiltY - currentTiltY) * 0.12;
+
+        if (gridPlane) {
+          gridPlane.style.transform = 'rotateX(' + currentTiltX.toFixed(2) + 'deg) rotateY(' + currentTiltY.toFixed(2) + 'deg) scale3d(1.05, 1.05, 1)';
+        }
+
+        updateParticles(normX, normY);
+        render();
+      }
+      animationFrameId = requestAnimationFrame(loop);
+    }
+
+    window.addEventListener('mousemove', function (e) {
+      if (footer) {
+        const footerRect = footer.getBoundingClientRect();
+        if (e.clientY >= footerRect.top) {
+          isMouseOver = false;
+          targetMouseX = -9999;
+          targetMouseY = -9999;
+          targetTiltX = 0;
+          targetTiltY = 0;
+          bgWrapper.style.setProperty('--grid-spotlight-opacity', '0');
+          return;
+        }
+      }
+
+      targetMouseX = e.clientX;
+      targetMouseY = e.clientY;
+      if (!isMouseOver) {
+        isMouseOver = true;
+        bgWrapper.style.setProperty('--grid-spotlight-opacity', '1');
+      }
+    }, { passive: true });
+
+    document.addEventListener('mouseleave', function () {
+      isMouseOver = false;
+      targetMouseX = -9999;
+      targetMouseY = -9999;
+      targetTiltX = 0;
+      targetTiltY = 0;
+      bgWrapper.style.setProperty('--grid-spotlight-opacity', '0');
+    });
+
+    window.addEventListener('scroll', function () {
+      if (footer && isMouseOver) {
+        const footerRect = footer.getBoundingClientRect();
+        if (targetMouseY >= footerRect.top) {
+          isMouseOver = false;
+          targetMouseX = -9999;
+          targetMouseY = -9999;
+          targetTiltX = 0;
+          targetTiltY = 0;
+          bgWrapper.style.setProperty('--grid-spotlight-opacity', '0');
+        }
+      }
+    }, { passive: true });
+
+    let resizeTimer;
+    window.addEventListener('resize', function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(resize, 150);
+    }, { passive: true });
+
+    document.addEventListener('visibilitychange', function () {
+      isVisible = !document.hidden;
+    });
+
+    resize();
+    loop();
+  }
+
+
+  /* ============================================================
      BOOTSTRAP
      ============================================================ */
 
@@ -1728,6 +2043,7 @@
       }
     }
 
+    initHeroBackgroundParticles();
     initTitleAnimations();
     initScrollReveal();
     initSpotlightCards();

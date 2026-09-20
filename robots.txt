@@ -7,28 +7,63 @@ Allow: /
 Disallow: /scratch/
 
 # AI Search & Retrieval Bots (Generative Engine Optimization)
+# OpenAI
 User-agent: GPTBot
 Allow: /
 
 User-agent: ChatGPT-User
 Allow: /
 
-User-agent: PerplexityBot
+User-agent: OAI-SearchBot
 Allow: /
 
+# Anthropic
 User-agent: ClaudeBot
 Allow: /
 
 User-agent: anthropic-ai
 Allow: /
 
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+# Google AI
 User-agent: Google-Extended
 Allow: /
 
+# Cohere
+User-agent: cohere-ai
+Allow: /
+
+# ByteDance / TikTok
 User-agent: Bytespider
 Allow: /
 
-User-agent: cohere-ai
+# Meta
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: Meta-ExternalFetcher
+Allow: /
+
+# Apple
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# DuckDuckGo AI
+User-agent: DuckAssistBot
+Allow: /
+
+# Microsoft / Bing AI
+User-agent: Bingbot
+Allow: /
+
+# Amazon
+User-agent: Amazonbot
 Allow: /
 
 # Sitemap Location

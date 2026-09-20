@@ -7,23 +7,95 @@
   <!-- Home Page -->
   <url>
     <loc>https://dreainno.website/</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+  </url>
+
+  <!-- Blog Hub -->
+  <url>
+    <loc>https://dreainno.website/blog/index.html</loc>
+    <lastmod>2026-09-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Blog Post 1: Why Your Offshore Team's Code is Killing Your Checkout Rate -->
+  <url>
+    <loc>https://dreainno.website/blog/offshore-code-checkout-rate.html</loc>
+    <lastmod>2026-09-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Blog Post 2: Stop Patching, Start Scaling -->
+  <url>
+    <loc>https://dreainno.website/blog/stop-patching-start-scaling.html</loc>
+    <lastmod>2026-09-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Blog Post 3: Speed is Revenue: Mobile UX ROI -->
+  <url>
+    <loc>https://dreainno.website/blog/speed-is-revenue-mobile-ux.html</loc>
+    <lastmod>2026-09-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Blog Post 4: ChatGPT Recommends Your Business -->
+  <url>
+    <loc>https://dreainno.website/blog/chatgpt-recommends-your-business.html</loc>
+    <lastmod>2026-09-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Blog Post 5: Multi-Agent AI Workflows -->
+  <url>
+    <loc>https://dreainno.website/blog/multi-agent-ai-sales-pipeline.html</loc>
+    <lastmod>2026-09-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Blog Post 6: The Death of Traditional SEO -->
+  <url>
+    <loc>https://dreainno.website/blog/death-of-traditional-seo.html</loc>
+    <lastmod>2026-09-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Blog Post 7: Optimizing Heavy-Duty Workflows -->
+  <url>
+    <loc>https://dreainno.website/blog/optimizing-heavy-duty-workflows.html</loc>
+    <lastmod>2026-09-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
   </url>
 
   <!-- About Page -->
   <url>
     <loc>https://dreainno.website/about.html</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
+  </url>
+
+  <!-- DreaInno vs Offshore Comparison -->
+  <url>
+    <loc>https://dreainno.website/dreainno-vs-offshore.html</loc>
+    <lastmod>2026-09-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
   </url>
 
   <!-- Privacy Policy -->
   <url>
     <loc>https://dreainno.website/privacy.html</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -31,7 +103,7 @@
   <!-- Terms of Service -->
   <url>
     <loc>https://dreainno.website/terms.html</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -39,7 +111,7 @@
   <!-- LLMs Text Standard (AI Agents & LLM Search Optimization) -->
   <url>
     <loc>https://dreainno.website/llms.txt</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>

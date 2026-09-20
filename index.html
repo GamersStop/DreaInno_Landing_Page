@@ -22,7 +22,20 @@
   <meta name="author" content="DreaInno Studio">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <meta name="theme-color" content="#05060b">
+  <meta name="revisit-after" content="7 days">
+  <meta name="rating" content="general">
+  <!-- Geo Targeting -->
+  <meta name="geo.region" content="US, GB, EU, CA">
+  <meta name="geo.placename" content="United States, United Kingdom, European Union, Canada">
+  <meta name="ICBM" content="37.7749, -122.4194">
+  <!-- Canonical & LLMs -->
   <link rel="canonical" href="https://dreainno.website/">
+  <!-- hreflang: International geo-targeting -->
+  <link rel="alternate" hreflang="en" href="https://dreainno.website/">
+  <link rel="alternate" hreflang="en-US" href="https://dreainno.website/">
+  <link rel="alternate" hreflang="en-GB" href="https://dreainno.website/">
+  <link rel="alternate" hreflang="en-CA" href="https://dreainno.website/">
+  <link rel="alternate" hreflang="x-default" href="https://dreainno.website/">
   <link rel="alternate" type="text/markdown" href="llms.txt" title="LLM Information Architecture">
 
   <!-- Favicons -->
@@ -39,18 +52,24 @@
   <meta property="og:url" content="https://dreainno.website/">
   <meta property="og:site_name" content="DreaInno">
   <meta property="og:locale" content="en_US">
-  <meta property="og:image" content="https://dreainno.website/assets/brand/dreainno-logo-white.png">
+  <meta property="og:image" content="https://dreainno.website/assets/brand/dreainno-og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="DreaInno — Best Web Development & Senior Freelancer in US, UK, EU & Canada">
   <meta property="og:type" content="website">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@dreainno">
+  <meta name="twitter:creator" content="@dreainno">
   <meta name="twitter:title"
     content="DreaInno — Best Web Development &amp; Senior Freelancer in US, UK, EU &amp; Canada">
   <meta name="twitter:description"
     content="Recognized for the best web development and senior freelancer in US, freelancer in UK, and freelancer in EU. High-performance web applications, design systems, and digital ventures.">
-  <meta name="twitter:image" content="https://dreainno.website/assets/brand/dreainno-logo-white.png">
+  <meta name="twitter:image" content="https://dreainno.website/assets/brand/dreainno-og-card.png">
+  <meta name="twitter:image:alt" content="DreaInno Studio — Architectural Web Solutions">
 
-  <!-- Structured Data: Organization, ProfessionalService & FAQPage (JSON-LD) -->
+  <!-- Structured Data: Organization, ProfessionalService, WebPage, BreadcrumbList, FAQPage, ItemList (JSON-LD) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -62,14 +81,18 @@
         "alternateName": "DreaInno Studio",
         "url": "https://dreainno.website/",
         "logo": "https://dreainno.website/assets/brand/dreainno-logo-white.png",
-        "image": "https://dreainno.website/assets/brand/dreainno-logo-white.png",
-        "description": "Award-winning digital craft studio and software engineering team delivering the best web development and senior freelancer in US, freelancer in UK, and freelancer in EU.",
+        "image": "https://dreainno.website/assets/brand/dreainno-og-card.png",
+        "description": "Award-winning digital craft studio and software engineering team delivering the best web development and senior freelancer in US, freelancer in UK, and freelancer in EU. Specializing in Performance & CRO Interventions, Enterprise Backend & ERP Scalability, Custom Workflow Tooling, and Advanced Full-Stack & AI Integration.",
         "email": "admin@dreainno.website",
         "founder": {
           "@type": "Person",
           "name": "Mayuresh Pandit",
           "jobTitle": "Founder & Principal Systems Architect",
-          "url": "https://dreainno.website/about.html"
+          "url": "https://dreainno.website/about.html",
+          "sameAs": [
+            "https://github.com/GamersStop",
+            "https://www.linkedin.com/in/drea-inno-39314b39a/"
+          ]
         },
         "sameAs": [
           "https://github.com/GamersStop",
@@ -79,103 +102,52 @@
           "https://www.facebook.com/profile.php?id=61574999421966"
         ],
         "areaServed": [
-          {
-            "@type": "Country",
-            "name": "United States",
-            "alternateName": "US"
-          },
-          {
-            "@type": "Country",
-            "name": "United Kingdom",
-            "alternateName": "UK"
-          },
-          {
-            "@type": "AdministrativeArea",
-            "name": "European Union",
-            "alternateName": "EU"
-          },
-          {
-            "@type": "Country",
-            "name": "Canada",
-            "alternateName": "CA"
-          }
+          { "@type": "Country", "name": "United States", "alternateName": "US" },
+          { "@type": "Country", "name": "United Kingdom", "alternateName": "UK" },
+          { "@type": "AdministrativeArea", "name": "European Union", "alternateName": "EU" },
+          { "@type": "Country", "name": "Canada", "alternateName": "CA" }
+        ],
+        "mentions": [
+          { "@type": "Thing", "name": "Next.js" },
+          { "@type": "Thing", "name": "React" },
+          { "@type": "Thing", "name": "React Native" },
+          { "@type": "Thing", "name": "TypeScript" },
+          { "@type": "Thing", "name": "Docker" },
+          { "@type": "Thing", "name": "PostgreSQL" },
+          { "@type": "Thing", "name": "Oracle PeopleSoft" },
+          { "@type": "Thing", "name": "FastAPI" },
+          { "@type": "Thing", "name": "Python" },
+          { "@type": "Thing", "name": "PHP Laravel" },
+          { "@type": "Thing", "name": "Chrome Extensions Manifest V3" },
+          { "@type": "Thing", "name": "WordPress" },
+          { "@type": "Thing", "name": "Core Web Vitals" },
+          { "@type": "Thing", "name": "Conversion Rate Optimization" },
+          { "@type": "Thing", "name": "Multi-Agent AI Systems" }
         ],
         "hasOfferCatalog": {
           "@type": "OfferCatalog",
-          "name": "Global Web Development & Freelance Engineering Services",
+          "name": "Global Web Development & Architectural Engineering Services",
           "itemListElement": [
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Best Web Development in US",
-                "description": "Enterprise-grade web engineering, Next.js full-stack applications, and reactive web platforms for high-growth US scaleups and tech leaders.",
-                "areaServed": "US"
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Freelancer in US",
-                "description": "Senior full-stack freelance engineering, systems architecture, and rapid MVP sprint delivery for US scaleups and founders.",
-                "areaServed": "US"
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Best Web Development Service in UK",
-                "description": "Bespoke digital craft, GDPR-compliant architecture, headless CMS platforms, and ultra-fast web development for UK businesses and enterprises.",
-                "areaServed": "UK"
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Freelancer in UK",
-                "description": "Bespoke digital craft, contract web development, and senior freelance technical architecture for UK brands and businesses.",
-                "areaServed": "UK"
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Freelancer in EU",
-                "description": "High-availability web applications, GDPR-compliant cloud systems, and contract frontend/backend engineering across the European Union.",
-                "areaServed": "EU"
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Best Web Development in Canada",
-                "description": "Scalable cloud-ready web applications, microservices architecture, and high-performance digital platforms across Canada's tech hubs.",
-                "areaServed": "CA"
-              }
-            }
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Best Web Development in US", "description": "Enterprise-grade web engineering, Next.js full-stack applications, and reactive web platforms for high-growth US scaleups and tech leaders.", "areaServed": "US" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Freelancer in US", "description": "Senior full-stack freelance engineering, systems architecture, and rapid MVP sprint delivery for US scaleups and founders.", "areaServed": "US" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Best Web Development Service in UK", "description": "Bespoke digital craft, GDPR-compliant architecture, headless CMS platforms, and ultra-fast web development for UK businesses.", "areaServed": "GB" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Freelancer in UK", "description": "Contract web development and senior freelance technical architecture for UK brands and businesses.", "areaServed": "GB" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Freelancer in EU", "description": "High-availability web applications, GDPR-compliant cloud systems, and contract engineering across the European Union.", "areaServed": "EU" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Best Web Development in Canada", "description": "Scalable cloud-ready web applications, microservices architecture, and high-performance digital platforms across Canada.", "areaServed": "CA" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Performance & CRO Interventions", "description": "Mobile UI audits, Core Web Vitals recovery, and Conversion Rate Optimization to transform slow platforms into high-revenue assets.", "areaServed": ["US", "GB", "EU", "CA"] } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Enterprise Backend & ERP Scalability", "description": "Docker containerization, PostgreSQL schema optimization, Oracle PeopleSoft performance tuning, and AWE workflow configuration.", "areaServed": ["US", "GB", "EU", "CA"] } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Custom Diagnostic & Workflow Tools", "description": "Bespoke Chrome browser extensions, FastAPI middleware, and Python automation tools that eliminate manual bottlenecks.", "areaServed": ["US", "GB", "EU", "CA"] } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Advanced Full-Stack & AI Integration", "description": "React/React Native monorepos, PHP Laravel infrastructure, and multi-agent AI systems for future-proof product engineering.", "areaServed": ["US", "GB", "EU", "CA"] } }
           ]
         },
         "knowsAbout": [
-          "best webdevelopment in US",
-          "Best web development service in UK",
-          "best web development in Canada",
-          "Freelancer in UK",
-          "Freelancer in US",
-          "Freelancer in EU",
-          "Freelance Software Engineering",
-          "Contract Web Architecture",
-          "Web Design",
-          "Full-Stack Software Engineering",
-          "Design Systems",
-          "Chrome Manifest V3 Extensions",
-          "TypeScript",
-          "Performance Optimization",
-          "Open Source Development"
+          "best webdevelopment in US", "Best web development service in UK", "best web development in Canada",
+          "Freelancer in UK", "Freelancer in US", "Freelancer in EU",
+          "Freelance Software Engineering", "Contract Web Architecture", "Web Design",
+          "Full-Stack Software Engineering", "Design Systems", "Chrome Manifest V3 Extensions",
+          "TypeScript", "Performance Optimization", "Conversion Rate Optimization",
+          "Enterprise Backend Scalability", "Oracle PeopleSoft", "Docker Containerization",
+          "AI Integration", "Multi-Agent AI Systems", "FastAPI", "Open Source Development"
         ],
         "priceRange": "$$$"
       },
@@ -184,9 +156,38 @@
         "@id": "https://dreainno.website/#website",
         "url": "https://dreainno.website/",
         "name": "DreaInno",
-        "publisher": {
-          "@id": "https://dreainno.website/#organization"
+        "publisher": { "@id": "https://dreainno.website/#organization" },
+        "speakable": {
+          "@type": "SpeakableSpecification",
+          "cssSelector": [".hero-stage-title", ".offer-title", ".advantages-title", ".features-title", ".workflow-title"]
+        },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": { "@type": "EntryPoint", "urlTemplate": "https://dreainno.website/?q={search_term_string}" },
+          "query-input": "required name=search_term_string"
         }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://dreainno.website/#webpage",
+        "url": "https://dreainno.website/",
+        "name": "DreaInno — Best Web Development & Senior Freelancer in US, UK, EU & Canada",
+        "isPartOf": { "@id": "https://dreainno.website/#website" },
+        "about": { "@id": "https://dreainno.website/#organization" },
+        "description": "DreaInno delivers architectural web solutions: Performance & CRO, Enterprise Backend, Custom Workflow Tools, and AI Integration — for clients in US, UK, EU, and Canada.",
+        "inLanguage": "en-US",
+        "dateModified": "2026-09-20"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://dreainno.website/#breadcrumb",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://dreainno.website/" },
+          { "@type": "ListItem", "position": 2, "name": "What We Offer", "item": "https://dreainno.website/#whatWeOffer" },
+          { "@type": "ListItem", "position": 3, "name": "Portfolio", "item": "https://dreainno.website/#work" },
+          { "@type": "ListItem", "position": 4, "name": "Global Reach", "item": "https://dreainno.website/#globalDelivery" },
+          { "@type": "ListItem", "position": 5, "name": "Contact", "item": "https://dreainno.website/#contact" }
+        ]
       },
       {
         "@type": "FAQPage",
@@ -195,42 +196,47 @@
           {
             "@type": "Question",
             "name": "Why is DreaInno recognized for the best web development in US?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "DreaInno delivers the best web development in US by pairing Silicon Valley engineering rigor with pixel-perfect design craft. We build high-throughput full-stack applications, Next.js web solutions, and custom developer tooling with sub-second latency and 99.99% uptime reliability."
-            }
+            "acceptedAnswer": { "@type": "Answer", "text": "DreaInno delivers the best web development in US by pairing Silicon Valley engineering rigor with pixel-perfect design craft. We build high-throughput full-stack applications, Next.js web solutions, and custom developer tooling with sub-second latency and 99.99% uptime reliability." }
           },
           {
             "@type": "Question",
             "name": "What makes DreaInno the best web development service in UK?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "As the best web development service in UK, DreaInno builds bespoke digital experiences, GDPR-compliant web systems, headless CMS architectures, and lightning-fast web applications tailored to London and UK-wide brands requiring uncompromising design polish and rigorous performance."
-            }
+            "acceptedAnswer": { "@type": "Answer", "text": "As the best web development service in UK, DreaInno builds bespoke digital experiences, GDPR-compliant web systems, headless CMS architectures, and lightning-fast web applications tailored to London and UK-wide brands requiring uncompromising design polish and rigorous performance." }
           },
           {
             "@type": "Question",
             "name": "How does DreaInno provide the best web development in Canada?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "DreaInno offers the best web development in Canada by partnering with Toronto, Vancouver, and Montreal enterprises to build scalable cloud architectures, bilingual-ready web interfaces, and high-conversion software products engineered for extreme speed and security."
-            }
+            "acceptedAnswer": { "@type": "Answer", "text": "DreaInno offers the best web development in Canada by partnering with Toronto, Vancouver, and Montreal enterprises to build scalable cloud architectures, bilingual-ready web interfaces, and high-conversion software products engineered for extreme speed and security." }
           },
           {
             "@type": "Question",
             "name": "Can I hire DreaInno as a dedicated senior freelancer in US, UK, or EU?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes. DreaInno provides elite senior freelance software engineering and fractional principal systems architecture for clients seeking a proven freelancer in US, freelancer in UK, or freelancer in EU. We deliver rapid sprints, high-throughput web applications, and direct engineering ownership."
-            }
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. DreaInno provides elite senior freelance software engineering and fractional principal systems architecture for clients seeking a proven freelancer in US, freelancer in UK, or freelancer in EU. We deliver rapid sprints, high-throughput web applications, and direct engineering ownership." }
           },
           {
             "@type": "Question",
             "name": "How do clients in the US, UK, and Canada collaborate with DreaInno?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "We operate a frictionless, time-zone aligned global delivery model with asynchronous updates, dedicated Slack/Teams collaboration channels, rapid sprint cycles, and fixed-scope sprint deliveries across Eastern, Central, Pacific, and GMT/BST time zones."
-            }
+            "acceptedAnswer": { "@type": "Answer", "text": "We operate a frictionless, time-zone aligned global delivery model with asynchronous updates, dedicated Slack/Teams collaboration channels, rapid sprint cycles, and fixed-scope sprint deliveries across Eastern, Central, Pacific, and GMT/BST time zones." }
+          },
+          {
+            "@type": "Question",
+            "name": "What is DreaInno's Performance and CRO Intervention service?",
+            "acceptedAnswer": { "@type": "Answer", "text": "DreaInno's Performance and CRO Interventions go beyond Lighthouse scores. We audit mobile UI and page load bottlenecks, implement targeted Conversion Rate Optimization, eliminate bloated code, and optimize responsiveness to turn slow platforms into high-converting revenue assets." }
+          },
+          {
+            "@type": "Question",
+            "name": "How does DreaInno handle Enterprise Backend and ERP Scalability?",
+            "acceptedAnswer": { "@type": "Answer", "text": "With 8+ years of web development and 4 years of enterprise workflow specialization, DreaInno restructures failing backend foundations. We containerize with Docker, optimize PostgreSQL schemas, tune Oracle PeopleSoft performance, and configure AWE workflows for heavy-duty enterprise systems." }
+          },
+          {
+            "@type": "Question",
+            "name": "What custom diagnostic and workflow tools does DreaInno build?",
+            "acceptedAnswer": { "@type": "Answer", "text": "DreaInno builds bespoke Chrome browser extensions that automate internal audits, high-speed API middleware with Python and FastAPI, and custom diagnostic tools — all designed to eliminate manual bottlenecks without forcing you to adapt to off-the-shelf software." }
+          },
+          {
+            "@type": "Question",
+            "name": "Can DreaInno integrate multi-agent AI systems into existing products?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. DreaInno architects scalable React and React Native monorepos, builds secure PHP Laravel infrastructures, and integrates multi-agent AI systems and autonomous workflows — deploying the precise tech stack required to future-proof your product." }
           }
         ]
       },
@@ -244,17 +250,15 @@
             "position": 1,
             "name": "Fogo",
             "applicationCategory": "ProductivityApplication",
-            "applicationSubCategory": "Browser Extension (Manifest V3)",
+            "applicationSubCategory": "Browser Extension",
             "operatingSystem": "Chrome OS, Windows, macOS, Linux",
             "url": "https://chromewebstore.google.com/detail/fogo/",
             "installUrl": "https://chromewebstore.google.com/detail/fogo/",
-            "screenshot": "https://dreainno.website/assets/fogo-slide-1.jpg",
-            "offers": {
-              "@type": "Offer",
-              "price": "0",
-              "priceCurrency": "USD"
-            },
-            "description": "The calm, modular and intelligent productivity dashboard for Chrome new tabs."
+            "screenshot": ["https://dreainno.website/assets/fogo-slide-1.jpg", "https://dreainno.website/assets/fogo-slide-2.jpg"],
+            "featureList": "22 hand-crafted themes, 11 hero clock styles, offline-first local storage, AI executive briefings, Manifest V3",
+            "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "ratingCount": "12", "bestRating": "5", "worstRating": "1" },
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+            "description": "The calm, modular and intelligent productivity dashboard for Chrome new tabs. Features 22 hand-crafted themes, offline-first local storage, and AI executive briefings."
           },
           {
             "@type": "SoftwareApplication",
@@ -265,12 +269,9 @@
             "operatingSystem": "Chrome OS, Windows, macOS, Linux",
             "url": "https://affiscope.website/",
             "installUrl": "https://affiscope.website/",
-            "screenshot": "https://dreainno.website/assets/affiscope-slide-1.png",
-            "offers": {
-              "@type": "Offer",
-              "price": "0",
-              "priceCurrency": "USD"
-            },
+            "screenshot": ["https://dreainno.website/assets/affiscope-slide-1.png", "https://dreainno.website/assets/affiscope-slide-2.png"],
+            "featureList": "FTC compliance auditing, affiliate link detection, on-page SEO diagnostics, real-time analysis",
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
             "description": "Live diagnostic workstation and FTC disclosure compliance radar for affiliate publishers."
           },
           {
@@ -282,13 +283,10 @@
             "operatingSystem": "WordPress",
             "url": "https://affistyle.shop/",
             "downloadUrl": "https://wordpress.org/plugins/affistyle/",
-            "screenshot": "https://dreainno.website/assets/affistyle-slide-1.png",
-            "offers": {
-              "@type": "Offer",
-              "price": "0",
-              "priceCurrency": "USD"
-            },
-            "description": "Zero-JS product comparison box engine and schema generator for WordPress."
+            "screenshot": ["https://dreainno.website/assets/affistyle-slide-1.png", "https://dreainno.website/assets/affistyle-slide-2.png"],
+            "featureList": "Zero JavaScript, product comparison boxes, Schema.org markup, affiliate link cloaking, 0.000 CLS",
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+            "description": "Zero-JS product comparison box engine and schema generator for WordPress running at 0.000 Cumulative Layout Shift."
           },
           {
             "@type": "SoftwareSourceCode",
@@ -296,6 +294,7 @@
             "name": "universal-form-validator",
             "codeRepository": "https://github.com/GamersStop/universal-form-validator",
             "programmingLanguage": "TypeScript",
+            "license": "https://opensource.org/licenses/MIT",
             "description": "Zero-dependency, fail-fast universal form validation engine on npm."
           },
           {
@@ -304,6 +303,7 @@
             "name": "ai-prompt-firewall",
             "codeRepository": "https://github.com/GamersStop/ai-prompt-firewall",
             "programmingLanguage": "TypeScript",
+            "license": "https://opensource.org/licenses/MIT",
             "description": "AI prompt security middleware for real-time secrets and PII redaction before LLM inference."
           }
         ]
@@ -319,11 +319,15 @@
     href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Space+Grotesk:wght@400;500;600;700&display=swap"
     rel="stylesheet">
 
+  <!-- Preload critical resources for LCP -->
+  <link rel="preload" href="css/variables.css?v=v24" as="style">
+  <link rel="preload" href="css/base.css?v=v24" as="style">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" as="style">
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="css/variables.css?v=v22">
-  <link rel="stylesheet" href="css/base.css?v=v22">
-  <link rel="stylesheet" href="css/animations.css?v=v22">
-  <link rel="stylesheet" href="css/components.css?v=v22">
+  <link rel="stylesheet" href="css/variables.css?v=v24">
+  <link rel="stylesheet" href="css/base.css?v=v24">
+  <link rel="stylesheet" href="css/animations.css?v=v24">
+  <link rel="stylesheet" href="css/components.css?v=v24">
 </head>
 
 <body>
@@ -339,7 +343,8 @@
       </a>
 
       <nav class="desktop-nav" aria-label="Main Navigation">
-        <a href="#services" class="nav-link">Services</a>
+        <a href="#whatWeOffer" class="nav-link">What We Offer</a>
+        <a href="blog/index.html" class="nav-link">Blog</a>
         <a href="#work" class="nav-link">Portfolio</a>
         <a href="#globalDelivery" class="nav-link">Global Reach</a>
         <a href="about.html" class="nav-link">About Us</a>
@@ -367,7 +372,7 @@
   <div class="mobile-drawer" id="mobileDrawer">
     <div
       style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
-      <div style="display: flex; align-items: center; gap: 10px;">
+      <div style="display: flex; align-items: center; gap: 14px;">
         <span class="brand-mark-wrap">
           <img src="assets/brand/dreainno-mark-white.png" alt="DreaInno Brand Mark" class="brand-mark-img">
         </span>
@@ -379,7 +384,8 @@
       </span>
     </div>
     <div class="mobile-drawer-links">
-      <a href="#services">Services</a>
+      <a href="#whatWeOffer">What We Offer</a>
+      <a href="blog/index.html">Blog</a>
       <a href="#work">Portfolio</a>
       <a href="#globalDelivery">Global Reach</a>
       <a href="about.html">About Us</a>
@@ -391,6 +397,33 @@
       style="width: 100%; text-align: center; padding: 14px 20px; display: block; text-decoration: none;">
       Start Project
     </a>
+  </div>
+
+  <!-- Global 3D Interactive Grid & Particle Background (All sections apart from footer) -->
+  <div class="global-bg-wrapper" id="globalBgWrapper" aria-hidden="true">
+    <!-- Ambient Glow Orbs -->
+    <div class="hero-bg-glow">
+      <div class="hero-glow-1"></div>
+      <div class="hero-glow-2"></div>
+      <div class="hero-glow-3"></div>
+    </div>
+
+    <!-- 3D Perspective Stage for Interactive Grid -->
+    <div class="hero-3d-stage">
+      <div class="hero-3d-grid-plane" id="hero3dGridPlane">
+        <!-- Precision Technical Grid with Dot Matrix -->
+        <div class="hero-bg-grid"></div>
+
+        <!-- Reactive Mouse-Hover Spotlight Grid -->
+        <div class="hero-bg-grid-spotlight"></div>
+
+        <!-- Soft Cursor Ambient Radiance -->
+        <div class="hero-mouse-glow"></div>
+      </div>
+    </div>
+
+    <!-- Dynamic Ambient Particles Canvas -->
+    <canvas id="heroParticlesCanvas" class="hero-particles-canvas"></canvas>
   </div>
 
   <main id="mainContent">
@@ -409,26 +442,27 @@
           <div class="hero-stage-item hero-stage-1" id="heroStage1">
 
 
-            <h1 class="hero-title" data-title-animation="A marketing website is a complex thing to build on your own"
-              data-highlights='[{"word":"complex","color":"#2b4bee"},{"word":"own","color":"#ee2b6c"}]'>
-              A marketing website is a complex thing to build on your own
+            <h1 class="hero-title" data-title-animation="The Audit Showed the Problem. We Are the Solution."
+              data-highlights='[{"word":"Problem","color":"#ee2b6c"},{"word":"Solution","color":"#2b4bee"}]'>
+              The Audit Showed the Problem. We Are the Solution.
             </h1>
 
             <p class="hero-cro-subheadline">
-              We design and engineer high-performance web applications, reactive user interfaces, and scalable backend
-              architectures for fast-growing ventures.
+              You're here because your offshore team hasn't scaled with your vision.Your offshore team missed the blind
+              spots that are actively costing you sales. We step in to fix the root cause, stop the revenue leak, and
+              turn your platform into a growth engine.
             </p>
 
             <div class="hero-cro-actions">
-              <a href="#contact" class="btn-primary hero-cro-btn-primary">
-                <span>Start Your Project</span>
+              <a href="dreainno-vs-offshore.html" class="btn-primary hero-cro-btn-primary">
+                <span>Explore: Dreainno vs. Your Offshore Team</span>
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                   stroke-linecap="round" stroke-linejoin="round">
                   <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
               </a>
-              <a href="#work" class="hero-cro-btn-secondary">
-                Explore Case Studies
+              <a href="#contact" class="hero-cro-btn-secondary">
+                Contact Us
               </a>
             </div>
 
@@ -438,16 +472,6 @@
               <span class="trust-chip">⭐ 5.0 Rating</span>
               <span class="trust-chip-sep">•</span>
               <span class="trust-chip">🔒 100% IP Ownership</span>
-            </div>
-
-            <div class="hero-cro-tech">
-              <span class="tech-label">Stack:</span>
-              <span class="tech-pill">React</span>
-              <span class="tech-pill">Angular</span>
-              <span class="tech-pill">FastAPI</span>
-              <span class="tech-pill">Laravel</span>
-              <span class="tech-pill">Docker</span>
-              <span class="tech-pill">PostgreSQL</span>
             </div>
 
             <a href="#heroStage2" class="hero-cro-scroll" aria-label="Scroll down to explore story">
@@ -496,9 +520,10 @@
 
           <!-- Stage 2 -->
           <div class="hero-stage-item hero-stage-2" id="heroStage2">
-            <h2 class="hero-title" data-title-animation="You either ask your team of specialists from adjacent fields"
-              data-highlights='[{"word":"team","color":"#2b4bee"},{"word":"specialists","color":"#ee2b6c"}]'>
-              You either ask your team of specialists from adjacent fields
+            <h2 class="hero-title"
+              data-title-animation="Still hesitating? Let’s fix the root cause before you lose another lead."
+              data-highlights='[{"word":"root cause","color":"#2b4bee"},{"word":"lose another lead","color":"#ee2b6c"}]'>
+              Still hesitating? Let’s fix the root cause before you lose another lead.
             </h2>
             <div class="hero-mobile-illustration" aria-hidden="true">
               <img src="assets/lg-illustration-2.svg" width="590" height="700" alt="Hero Illustration 2" loading="lazy">
@@ -507,9 +532,10 @@
 
           <!-- Stage 3 -->
           <div class="hero-stage-item hero-stage-3" id="heroStage3">
-            <h2 class="hero-title" data-title-animation="Or go wild cherry-picking &amp; managing freelancers"
-              data-highlights='[{"word":"wild","color":"#2b4bee"},{"word":"freelancers","color":"#ee2b6c"}]'>
-              Or go wild cherry-picking &amp; managing freelancers
+            <h2 class="hero-title"
+              data-title-animation="Or go back to micromanaging a team that only patches the symptoms"
+              data-highlights='[{"word":"micromanaging","color":"#2b4bee"},{"word":"patches","color":"#ee2b6c"}]'>
+              Or go back to micromanaging a team that only patches the symptoms
             </h2>
             <div class="hero-mobile-illustration" aria-hidden="true">
               <img src="assets/lg-illustration-3.svg" width="590" height="766" alt="Hero Illustration 3" loading="lazy">
@@ -533,43 +559,40 @@
          ===================================================================== -->
     <section class="advantages-section" id="advantages">
       <div class="container">
-        <h2 class="section-title-dark">
+        <div class="section-kicker">
+          <span class="kicker-badge"><span class="kicker-beacon"></span>PARTNERSHIP PHILOSOPHY</span>
+        </div>
+        <h2 class="section-title-dark advantages-title">
           It doesn't have to be like that.<br>
-          Work with DreaInno to see the difference:
+          Work with <span class="brand-glow-cyan">DreaInno</span> to see the <span class="brand-glow-pink">difference:</span>
         </h2>
 
         <div class="advantages-grid">
           <div class="advantage-item reveal-on-scroll">
             <span class="advantage-num">1.</span>
-            <div>
-              <h3 class="advantage-title-dark">Professional team</h3>
-              <p class="advantage-desc-dark">
-                The team power-packed with talented web, graphic and motion designers and software engineers led by
-                experienced architects whose synergy brings world-class marketing websites to life.
-              </p>
-            </div>
+            <h3 class="advantage-title-dark">Professional team</h3>
+            <p class="advantage-desc-dark">
+              The team power-packed with talented web, graphic and motion designers and software engineers led by
+              experienced architects whose synergy brings world-class marketing websites to life.
+            </p>
           </div>
 
           <div class="advantage-item reveal-on-scroll stagger-delay-1">
             <span class="advantage-num">2.</span>
-            <div>
-              <h3 class="advantage-title-dark">Communication-oriented</h3>
-              <p class="advantage-desc-dark">
-                Communication is the key to any successful partnership. At DreaInno we answer in hours, proactively
-                joining requirements discussions and delivering constant sprint updates.
-              </p>
-            </div>
+            <h3 class="advantage-title-dark">Communication-oriented</h3>
+            <p class="advantage-desc-dark">
+              Communication is the key to any successful partnership. At DreaInno we answer in hours, proactively
+              joining requirements discussions and delivering constant sprint updates.
+            </p>
           </div>
 
           <div class="advantage-item reveal-on-scroll stagger-delay-2">
             <span class="advantage-num">3.</span>
-            <div>
-              <h3 class="advantage-title-dark">On the same page with you</h3>
-              <p class="advantage-desc-dark">
-                Our team gained a deep technical foundation across Open Source, SaaS, and internal venture incubation.
-                We naturally translate technological complexity into visually compelling graphics.
-              </p>
-            </div>
+            <h3 class="advantage-title-dark">On the same page with you</h3>
+            <p class="advantage-desc-dark">
+              Our team gained a deep technical foundation across Open Source, SaaS, and internal venture incubation.
+              We naturally translate technological complexity into visually compelling graphics.
+            </p>
           </div>
         </div>
       </div>
@@ -580,8 +603,11 @@
          ===================================================================== -->
     <section class="features-section" id="features">
       <div class="container">
-        <h2 class="section-title-dark" style="max-width: 700px;">
-          Here is what we have to offer for the next ideal marketing website of yours:
+        <div class="section-kicker">
+          <span class="kicker-badge"><span class="kicker-beacon"></span>CORE CAPABILITIES</span>
+        </div>
+        <h2 class="section-title-dark features-title">
+          Here is what we have to offer for the <span class="brand-glow-cyan">next ideal</span> <span class="brand-glow-pink">marketing website</span> of yours:
         </h2>
 
         <div class="features-grid">
@@ -633,13 +659,122 @@
     </section>
 
     <!-- =====================================================================
-         4. WORKFLOW SECTION — Dark Background
+         4. WHAT WE OFFER SECTION — Architectural Solutions
+         ===================================================================== -->
+    <section class="section-spacing offer-section" id="whatWeOffer">
+      <div class="container">
+        <div class="section-kicker">
+          <span class="kicker-badge"><span class="kicker-beacon"></span>WHAT WE OFFER</span>
+        </div>
+        <h2 class="section-title-dark offer-title">
+          Architectural Solutions,<br>
+          <span class="brand-glow-cyan">Not Just</span> <span class="brand-glow-pink">Code</span>
+        </h2>
+        <p class="offer-subtitle">Most agencies offer generic "web development." We offer specialized technical interventions. When your offshore team hits a wall, we deploy targeted, stack-agnostic solutions to stabilize your infrastructure and scale your revenue.</p>
+
+        <div class="offer-grid">
+
+          <!-- Card 1: Performance & CRO -->
+          <div class="offer-card reveal-on-scroll">
+            <div class="offer-card-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+              </svg>
+            </div>
+            <div class="offer-card-num">01</div>
+            <h3 class="offer-card-title">Performance &amp; CRO Interventions</h3>
+            <p class="offer-card-desc">We don't just fix Lighthouse scores; we recover lost revenue. We audit your mobile UI and page load bottlenecks to implement targeted Conversion Rate Optimization. By stripping away bloated code and optimizing responsiveness, we turn sluggish, timeout-prone platforms into high-converting assets.</p>
+            <ul class="offer-card-tags">
+              <li>Core Web Vitals</li>
+              <li>Mobile Audit</li>
+              <li>CRO</li>
+              <li>Performance</li>
+            </ul>
+          </div>
+
+          <!-- Card 2: Enterprise Backend & ERP -->
+          <div class="offer-card reveal-on-scroll stagger-delay-1">
+            <div class="offer-card-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+                <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+                <line x1="6" y1="6" x2="6.01" y2="6"></line>
+                <line x1="6" y1="18" x2="6.01" y2="18"></line>
+              </svg>
+            </div>
+            <div class="offer-card-num">02</div>
+            <h3 class="offer-card-title">Enterprise Backend &amp; ERP Scalability</h3>
+            <p class="offer-card-desc">When standard databases buckle under scale, we restructure the foundation. With 8+ years of overall web development and 4 years of deep specialization in enterprise workflows, we untangle complex architectures — from Docker containerization and PostgreSQL optimization to Oracle PeopleSoft performance tuning.</p>
+            <ul class="offer-card-tags">
+              <li>Docker</li>
+              <li>PostgreSQL</li>
+              <li>PeopleSoft</li>
+              <li>ERP</li>
+            </ul>
+          </div>
+
+          <!-- Card 3: Custom Tools -->
+          <div class="offer-card reveal-on-scroll stagger-delay-2">
+            <div class="offer-card-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"></path>
+                <line x1="12" y1="2" x2="12" y2="4"></line>
+                <line x1="12" y1="20" x2="12" y2="22"></line>
+                <line x1="2" y1="12" x2="4" y2="12"></line>
+                <line x1="20" y1="12" x2="22" y2="12"></line>
+              </svg>
+            </div>
+            <div class="offer-card-num">03</div>
+            <h3 class="offer-card-title">Custom Diagnostic &amp; Workflow Tools</h3>
+            <p class="offer-card-desc">Off-the-shelf software often forces you to change your business to fit the code. We build lightweight, high-impact custom tools — from bespoke Chrome browser extensions that automate internal audits, to high-speed API middleware using Python and FastAPI — designed to eliminate your manual bottlenecks.</p>
+            <ul class="offer-card-tags">
+              <li>Chrome Extensions</li>
+              <li>FastAPI</li>
+              <li>Python</li>
+              <li>Automation</li>
+            </ul>
+          </div>
+
+          <!-- Card 4: AI Integration -->
+          <div class="offer-card reveal-on-scroll stagger-delay-3">
+            <div class="offer-card-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="5" r="2"></circle>
+                <circle cx="5" cy="19" r="2"></circle>
+                <circle cx="19" cy="19" r="2"></circle>
+                <circle cx="12" cy="12" r="2"></circle>
+                <line x1="12" y1="7" x2="12" y2="10"></line>
+                <line x1="10.5" y1="13.5" x2="6.5" y2="17.5"></line>
+                <line x1="13.5" y1="13.5" x2="17.5" y2="17.5"></line>
+              </svg>
+            </div>
+            <div class="offer-card-num">04</div>
+            <h3 class="offer-card-title">Advanced Full-Stack &amp; AI Integration</h3>
+            <p class="offer-card-desc">We engineer the features your generalist team cannot crack. Whether it requires architecting a scalable React and React Native monorepo, building secure PHP Laravel infrastructures, or integrating multi-agent AI systems and autonomous workflows — we deploy the precise tech stack required to future-proof your product.</p>
+            <ul class="offer-card-tags">
+              <li>React / RN</li>
+              <li>Laravel</li>
+              <li>Multi-Agent AI</li>
+              <li>Monorepo</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         5. WORKFLOW SECTION — Dark Background
          ===================================================================== -->
     <section class="section-spacing workflow-section" id="workflow">
       <div class="container">
-        <h2 style="font-size: clamp(2rem, 3.6vw, 2.75rem); font-weight: 500; max-width: 720px; line-height: 1.25;">
-          Let's break down the <span style="color: #ee2b6c;">Magic</span> behind the result and reveal the whole
-          process:
+        <div class="section-kicker">
+          <span class="kicker-badge"><span class="kicker-beacon"></span>DEVELOPMENT WORKFLOW</span>
+        </div>
+        <h2 class="section-title-dark workflow-title">
+          Let's break down the <span class="brand-glow-cyan">Magic</span> behind the result<br>
+          and reveal the <span class="brand-glow-pink">whole process:</span>
         </h2>
 
         <div class="workflow-timeline" style="margin-top: 56px;">
@@ -2117,9 +2252,10 @@
         <div class="footer-col">
           <h5>Navigation</h5>
           <ul class="footer-links">
-            <li><a href="#services">Services</a></li>
+            <li><a href="blog/index.html">Blog &amp; Insights</a></li>
             <li><a href="#work">Portfolio</a></li>
             <li><a href="#globalDelivery">US, UK, EU &amp; Canada</a></li>
+            <li><a href="dreainno-vs-offshore.html">Dreainno vs Offshore</a></li>
             <li><a href="#workflow">Workflow</a></li>
             <li><a href="about.html">About Studio</a></li>
             <li><a href="privacy.html">Privacy Policy</a></li>
@@ -2212,8 +2348,8 @@
     }
   </script>
   <script src="js/rive-data.js"></script>
-  <script src="js/animations.js?v=v22"></script>
-  <script src="js/main.js?v=v22"></script>
+  <script src="js/animations.js?v=v23"></script>
+  <script src="js/main.js?v=v23"></script>
 </body>
 
 </html>

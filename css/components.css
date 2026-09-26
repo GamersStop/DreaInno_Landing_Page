@@ -3453,7 +3453,7 @@
 }
 
 .cta-form-status.success {
-  display: block;
+  display: block !important;
   padding: 12px 16px;
   background: rgba(16, 185, 129, 0.15);
   border: 1px solid rgba(16, 185, 129, 0.4);
@@ -3461,11 +3461,47 @@
 }
 
 .cta-form-status.error {
-  display: block;
+  display: block !important;
   padding: 12px 16px;
   background: rgba(239, 68, 68, 0.15);
   border: 1px solid rgba(239, 68, 68, 0.4);
   color: #f87171;
+}
+
+/* ── GDPR / DPDP Consent Checkbox ── */
+.cta-consent-group {
+  margin-top: 14px;
+  margin-bottom: 8px;
+}
+
+.cta-consent-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: var(--color-text-secondary);
+}
+
+.cta-consent-checkbox {
+  margin-top: 2px;
+  width: 16px;
+  height: 16px;
+  accent-color: var(--color-accent-blue);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.cta-consent-text .privacy-link {
+  color: var(--color-accent-blue);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.2s ease;
+}
+
+.cta-consent-text .privacy-link:hover {
+  color: #60a5fa;
 }
 
 .cta-trust-reassurance {

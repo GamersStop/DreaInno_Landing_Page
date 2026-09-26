@@ -203,6 +203,19 @@
     }
   }
 
+  function sanitizeUrl(urlString) {
+    if (!urlString) return '';
+    try {
+      const parsed = new URL(urlString.startsWith('http') ? urlString : 'https://' + urlString);
+      if (parsed.protocol === 'http:' || parsed.protocol === 'https:') {
+        return parsed.href;
+      }
+      return '';
+    } catch {
+      return '';
+    }
+  }
+
   /**
    * Generate an algorithmic sandbox verification hash
    */
@@ -250,10 +263,11 @@
 
     const liveTargetLink = document.getElementById('liveTargetLink');
     if (liveTargetLink) {
-      if (state.url) {
-        liveTargetLink.href = state.url;
+      const safeTargetUrl = sanitizeUrl(state.url);
+      if (safeTargetUrl) {
+        liveTargetLink.href = safeTargetUrl;
         liveTargetLink.style.display = 'inline-flex';
-        liveTargetLink.title = `Visit live target site: ${state.url}`;
+        liveTargetLink.title = `Visit live target site: ${safeTargetUrl}`;
       } else {
         liveTargetLink.style.display = 'none';
       }
@@ -272,7 +286,7 @@
     const telemetryDispatchChip = document.getElementById('telemetryDispatchChip');
     if (telemetryDispatchChip) {
       if (state.ref && state.engineVer) {
-        telemetryDispatchChip.innerHTML = `<span class="pulse-dot"></span><span>AffiScope™ v${state.engineVer} Telemetry Dispatch</span>`;
+        telemetryDispatchChip.innerHTML = `<span class="pulse-dot"></span><span>AffiScope™ v${escapeHtml(state.engineVer)} Telemetry Dispatch</span>`;
       } else if (state.ref) {
         telemetryDispatchChip.innerHTML = `<span class="pulse-dot"></span><span>${escapeHtml(state.ref.toUpperCase())} Telemetry Dispatch</span>`;
       } else {
@@ -521,17 +535,18 @@
       if (ISSUE_DEFINITIONS[flagId]) {
         activeIssues.push(ISSUE_DEFINITIONS[flagId]);
       } else {
+        const cleanFlagId = flagId.replace(/[^a-zA-Z0-9_-]/g, '').slice(0, 50);
         activeIssues.push({
-          id: flagId,
+          id: cleanFlagId || 'custom_anomaly',
           severity: 'high',
           deductPoints: 20,
-          title: `Diagnostic Detection: ${flagId.replace(/_/g, ' ').toUpperCase()}`,
+          title: `Diagnostic Detection: ${(cleanFlagId || 'Unknown Anomaly').replace(/_/g, ' ').toUpperCase()}`,
           badgeText: 'High Priority Remediation',
           iconClass: 'icon-danger',
           iconSvg: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>',
           detectionMeta: `Flagged during automated deep DOM & network inspection.`,
           diagnosisHtml: `Architectural irregularity detected requiring custom staging remediation.`,
-          sampleCode: `/* Telemetry identifier: ${flagId} */`,
+          sampleCode: `/* Telemetry identifier: ${escapeHtml(cleanFlagId || 'custom_flag')} */`,
           remediationBullets: [
             'Surgical codebase refactoring on isolated staging clone.',
             'Production verification and automated regression testing.'
@@ -558,11 +573,11 @@
               ${issue.iconSvg}
             </div>
             <div class="issue-heading-wrap">
-              <h3>${idx + 1}. ${issue.title}</h3>
-              <div class="issue-meta-summary">${issue.detectionMeta}</div>
+              <h3>${idx + 1}. ${escapeHtml(issue.title)}</h3>
+              <div class="issue-meta-summary">${escapeHtml(issue.detectionMeta)}</div>
             </div>
           </div>
-          <span class="issue-severity-pill ${severityClass}">${issue.badgeText}</span>
+          <span class="issue-severity-pill ${severityClass}">${escapeHtml(issue.badgeText)}</span>
         </div>
         <div class="issue-card-content">
           <div class="issue-diagnosis-side">
@@ -686,6 +701,73 @@
     }
   }
 
+  /* ============================================================
+     SECURITY VERIFICATION CAPTCHA ENGINE
+     ============================================================ */
+  let currentFixCaptcha = '';
+
+  function generateCaptchaText(length) {
+    const chars = '23456789ABCDEFGHJKLMNPQRSTUVWXYZ';
+    let text = '';
+    for (let i = 0; i < length; i++) {
+      text += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return text;
+  }
+
+  function drawFixCaptcha() {
+    const canvas = document.getElementById('fixCaptchaCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    currentFixCaptcha = generateCaptchaText(5);
+
+    const w = canvas.width;
+    const h = canvas.height;
+
+    // Dark futuristic slate background matching theme
+    ctx.fillStyle = '#0f172a';
+    ctx.fillRect(0, 0, w, h);
+
+    // Add background interference lines
+    const lineColors = ['rgba(0, 240, 255, 0.4)', 'rgba(0, 204, 118, 0.4)', 'rgba(168, 85, 247, 0.3)'];
+    for (let i = 0; i < 3; i++) {
+      ctx.strokeStyle = lineColors[i % lineColors.length];
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      ctx.moveTo(Math.random() * w, Math.random() * h);
+      ctx.bezierCurveTo(
+        Math.random() * w, Math.random() * h,
+        Math.random() * w, Math.random() * h,
+        Math.random() * w, Math.random() * h
+      );
+      ctx.stroke();
+    }
+
+    // Render each character with random rotation and color
+    const charColors = ['#00f0ff', '#00cc76', '#fbbf24', '#c084fc', '#f43f5e', '#38bdf8'];
+    ctx.font = 'bold 20px "IBM Plex Mono", monospace';
+    ctx.textBaseline = 'middle';
+
+    const startX = 16;
+    const spacing = (w - 32) / currentFixCaptcha.length;
+
+    for (let i = 0; i < currentFixCaptcha.length; i++) {
+      const char = currentFixCaptcha[i];
+      const x = startX + i * spacing;
+      const y = h / 2 + (Math.random() * 4 - 2);
+      const angle = (Math.random() * 24 - 12) * (Math.PI / 180);
+
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(angle);
+      ctx.fillStyle = charColors[i % charColors.length];
+      ctx.fillText(char, 0, 0);
+      ctx.restore();
+    }
+  }
+
   /**
    * Initialize all event listeners
    */
@@ -742,57 +824,224 @@
       });
     }
 
-    // 5. Booking Form Submission
+    // 5. Security Captcha Initialization
+    drawFixCaptcha();
+    const fixCaptchaReload = document.getElementById('fixCaptchaReload');
+    const fixCaptchaInput = document.getElementById('fixCaptchaInput');
+    if (fixCaptchaReload) {
+      fixCaptchaReload.addEventListener('click', function () {
+        drawFixCaptcha();
+        if (fixCaptchaInput) {
+          fixCaptchaInput.value = '';
+          fixCaptchaInput.focus();
+        }
+      });
+    }
+
+    // 6. Booking Form Submission (FormSubmit AJAX Delivery)
     const bookingForm = document.getElementById('sprintBookingForm');
+    const statusEl = document.getElementById('fixFormStatus');
+    const submitBtn = document.getElementById('sprintSubmitBtn') || (bookingForm ? bookingForm.querySelector('button[type="submit"]') : null);
+    const btnText = submitBtn ? submitBtn.querySelector('.btn-dispatch-text') : null;
+    const btnSpinner = submitBtn ? submitBtn.querySelector('.btn-dispatch-spinner') : null;
+    const btnArrow = submitBtn ? submitBtn.querySelector('.btn-dispatch-arrow') : null;
+
     if (bookingForm) {
-      bookingForm.addEventListener('submit', function (e) {
+      bookingForm.addEventListener('submit', async function (e) {
         e.preventDefault();
 
-        const submitBtn = bookingForm.querySelector('button[type="submit"]');
-        const originalText = submitBtn.innerHTML;
+        // Clear previous status
+        if (statusEl) {
+          statusEl.className = 'fix-form-status';
+          statusEl.style.display = 'none';
+          statusEl.innerHTML = '';
+        }
 
-        const targetDomainValue = document.getElementById('formTargetDomain')?.value.trim() || state.domain || 'Client Domain';
-        const clientName = document.getElementById('formClientName')?.value.trim() || 'Client';
+        function showFormError(msg, targetInput) {
+          if (statusEl) {
+            statusEl.className = 'fix-form-status error';
+            statusEl.style.display = 'block';
+            statusEl.innerHTML = `
+              <div style="display: flex; align-items: flex-start; gap: 10px;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f87171" stroke-width="2.2" style="flex-shrink:0; margin-top:2px;">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="8" x2="12" y2="12"></line>
+                  <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+                <div style="flex:1;">${msg}</div>
+              </div>
+            `;
+            statusEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+          const textOnly = msg.replace(/<[^>]*>/g, '');
+          showToast(textOnly, 'error');
+          if (targetInput) {
+            targetInput.focus();
+            targetInput.style.borderColor = '#ef4444';
+            targetInput.style.boxShadow = '0 0 0 3px rgba(239, 68, 68, 0.3)';
+            setTimeout(() => {
+              targetInput.style.borderColor = '';
+              targetInput.style.boxShadow = '';
+            }, 3000);
+          }
+        }
+
+        // Anti-bot honeypot check
+        const honeypot = bookingForm.querySelector('input[name="_gotcha"]');
+        if (honeypot && honeypot.value) {
+          return; // Silent reject for automated bots
+        }
+
+        const targetDomainValue = document.getElementById('formTargetDomain')?.value.trim() || state.domain || '';
+        const clientName = document.getElementById('formClientName')?.value.trim() || '';
         const clientEmail = document.getElementById('formClientEmail')?.value.trim() || '';
         const sprintType = document.getElementById('formSprintType')?.value || '48-Hour Rapid Staging Sprint';
-        const notes = document.getElementById('formNotes')?.value || '';
+        const notes = document.getElementById('formNotes')?.value.trim() || '';
+        const enteredCaptcha = (fixCaptchaInput ? fixCaptchaInput.value : '').trim().toUpperCase();
+        const consentCheckbox = document.getElementById('fixPrivacyConsent');
 
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = `
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="spin-icon" style="animation: spin 1s linear infinite;"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a10 10 0 0 1 10 10"></path></svg>
-          Locking In Staging Sprint...
-        `;
+        // Specific validations with user-visible explanations
+        if (!targetDomainValue) {
+          showFormError('<strong>Target Domain Required:</strong> Please enter the domain or URL you want to remediate.', document.getElementById('formTargetDomain'));
+          return;
+        }
 
-        const subject = encodeURIComponent(`[48-Hour Staging Sprint] ${targetDomainValue} Remediation Request`);
-        const body = encodeURIComponent(
-          `Client Name: ${clientName}\nEmail: ${clientEmail}\nTarget Domain: ${targetDomainValue}\nTarget URL: ${state.url || targetDomainValue}\nSprint Tier: ${sprintType}\nHealth Score: ${state.healthScore !== null ? state.healthScore + '/100' : 'Awaiting Audit'}\nFlags: ${state.flags.length > 0 ? state.flags.join(', ') : 'None / Custom'}\n\nProject Scope & Notes:\n${notes}`
-        );
+        if (!clientName) {
+          showFormError('<strong>Name Required:</strong> Please enter your full name.', document.getElementById('formClientName'));
+          return;
+        }
 
-        setTimeout(() => {
-          submitBtn.innerHTML = `
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            Sprint Slot Locked! Dispatching...
-          `;
-          submitBtn.style.background = '#00cc76';
+        if (!clientEmail) {
+          showFormError('<strong>Email Required:</strong> Please enter your work email address.', document.getElementById('formClientEmail'));
+          return;
+        }
 
-          showToast(`Staging Sprint confirmed for ${targetDomainValue}! DreaInno team notified.`);
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(clientEmail)) {
+          showFormError('<strong>Invalid Email:</strong> Please enter a valid email address (e.g. name@company.com).', document.getElementById('formClientEmail'));
+          return;
+        }
 
-          window.location.href = `mailto:admin@dreainno.website?subject=${subject}&body=${body}`;
+        if (!consentCheckbox || !consentCheckbox.checked) {
+          showFormError('<strong>Consent Required:</strong> Please check the box to consent to DreaInno\'s Privacy Policy (mandatory for GDPR &amp; DPDP compliance).', consentCheckbox);
+          return;
+        }
 
-          setTimeout(() => {
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = originalText;
-            submitBtn.style.background = '';
-          }, 3500);
-        }, 1100);
+        if (!enteredCaptcha) {
+          showFormError('<strong>Security Code Required:</strong> Please enter the 5 verification characters shown above.', fixCaptchaInput);
+          return;
+        }
+
+        if (enteredCaptcha !== currentFixCaptcha) {
+          showFormError('<strong>Incorrect Security Code:</strong> The verification code does not match. A fresh security code has been generated—please re-enter it.', fixCaptchaInput);
+          drawFixCaptcha();
+          if (fixCaptchaInput) fixCaptchaInput.value = '';
+          return;
+        }
+
+        // Enter loading state
+        if (submitBtn) submitBtn.disabled = true;
+        if (btnText) btnText.style.display = 'none';
+        if (btnArrow) btnArrow.style.display = 'none';
+        if (btnSpinner) btnSpinner.style.display = 'inline-flex';
+
+        try {
+          const response = await fetch('https://formsubmit.co/ajax/admin@dreainno.website', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+              TargetDomain: targetDomainValue || 'Unspecified Target Domain',
+              TargetUrl: state.url || (targetDomainValue ? 'https://' + targetDomainValue + '/' : 'Unspecified'),
+              ClientName: clientName,
+              ClientEmail: clientEmail,
+              SprintTier: sprintType,
+              HealthScore: state.healthScore !== null ? `${state.healthScore}/100` : 'Standby / Awaiting Audit',
+              IdentifiedFlags: state.flags.length > 0 ? state.flags.join(', ') : 'None / Custom Scope',
+              IssuesCount: state.issuesCount || state.flags.length || 0,
+              AuditEngineVersion: state.engineVer || 'AffiScope Staging Engine v1.1.0',
+              ReferralSource: state.ref || 'Direct Remediation Workbench',
+              SprintDirectives: notes || 'Standard 48-Hour Staging sprint diagnostics requested.',
+              PrivacyConsent: 'Accepted (GDPR & DPDP Compliant)',
+              _subject: `[48-Hour Staging Sprint] ${targetDomainValue || 'Domain'} Remediation Request (${clientName})`,
+              _template: 'table',
+              _captcha: 'false',
+              _cc: 'dreainno@gmail.com'
+            })
+          });
+
+          const data = await response.json();
+
+          if (response.ok && (data.success === 'true' || data.success === true || data.message)) {
+            if (statusEl) {
+              statusEl.className = 'fix-form-status success';
+              statusEl.style.display = 'block';
+              statusEl.innerHTML = `
+                <div style="display: flex; align-items: flex-start; gap: 10px;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.2" style="flex-shrink:0; margin-top:2px;">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                  </svg>
+                  <div>
+                    <strong>✓ 48-Hour Staging Sprint Dispatched!</strong><br>
+                    Your remediation request for <code>${escapeHtml(targetDomainValue || 'your domain')}</code> has been received. Principal Systems Architect Mayuresh Pandit will contact you within 4 hours.
+                  </div>
+                </div>
+              `;
+              statusEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+            showToast(`Staging Sprint confirmed for ${targetDomainValue || 'your domain'}! Engineering dispatched.`);
+            bookingForm.reset();
+            if (state.domain) {
+              const domInput = document.getElementById('formTargetDomain');
+              if (domInput) domInput.value = state.domain;
+            }
+            drawFixCaptcha();
+          } else {
+            throw new Error(data?.message || 'Server rejected submission with status ' + response.status);
+          }
+        } catch (err) {
+          console.warn('Sprint FormSubmit AJAX fallback:', err);
+          if (statusEl) {
+            statusEl.className = 'fix-form-status error';
+            statusEl.style.display = 'block';
+            const mailtoFallback = 'mailto:admin@dreainno.website?subject=' +
+              encodeURIComponent(`[48-Hour Staging Sprint] ${targetDomainValue} Remediation Request`) +
+              '&body=' + encodeURIComponent(
+                `Client Name: ${clientName}\nEmail: ${clientEmail}\nTarget Domain: ${targetDomainValue}\nSprint Tier: ${sprintType}\nHealth Score: ${state.healthScore !== null ? state.healthScore + '/100' : 'Awaiting Audit'}\nFlags: ${state.flags.length > 0 ? state.flags.join(', ') : 'None'}\n\nProject Scope & Notes:\n${notes}`
+              );
+            statusEl.innerHTML = `
+              <div style="display: flex; align-items: flex-start; gap: 10px;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f87171" stroke-width="2.2" style="flex-shrink:0; margin-top:2px;">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="8" x2="12" y2="12"></line>
+                  <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+                <div>
+                  <strong>Dispatch Relay Interrupted:</strong> ${escapeHtml(err.message || 'Network connectivity error')}.<br>
+                  <a href="${mailtoFallback}" style="color:var(--color-brand-cyan);text-decoration:underline;font-weight:600;display:inline-block;margin-top:6px;">Click here to dispatch directly via your email client to admin@dreainno.website →</a>
+                </div>
+              </div>
+            `;
+            statusEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+          showToast('Form submission could not be completed. Please review error above.', 'error');
+        } finally {
+          if (submitBtn) submitBtn.disabled = false;
+          if (btnText) btnText.style.display = '';
+          if (btnArrow) btnArrow.style.display = '';
+          if (btnSpinner) btnSpinner.style.display = 'none';
+        }
       });
     }
   }
 
   /**
-   * Toast notification helper
+   * Toast notification helper with type support (success/error)
    */
-  function showToast(message) {
+  function showToast(message, type = 'success') {
     let toast = document.getElementById('fixToast');
     if (!toast) {
       toast = document.createElement('div');
@@ -800,15 +1049,22 @@
       toast.className = 'fix-toast';
       document.body.appendChild(toast);
     }
+    const isError = type === 'error';
+    const icon = isError 
+      ? `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.2" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>`
+      : `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00cc76" stroke-width="2.2" style="flex-shrink:0;"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+    
+    toast.style.borderColor = isError ? 'rgba(239, 68, 68, 0.45)' : 'rgba(0, 204, 118, 0.45)';
+    toast.style.boxShadow = isError ? '0 10px 30px rgba(239, 68, 68, 0.3)' : '0 10px 30px rgba(0, 204, 118, 0.3)';
     toast.innerHTML = `
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00cc76" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      ${icon}
       <span>${escapeHtml(message)}</span>
     `;
     toast.classList.add('is-active');
 
     setTimeout(() => {
       toast.classList.remove('is-active');
-    }, 4000);
+    }, 4500);
   }
 
   // Initialize on DOM ready

@@ -1646,30 +1646,76 @@
       if (statusEl) {
         statusEl.className = 'cta-form-status';
         statusEl.style.display = 'none';
-        statusEl.textContent = '';
+        statusEl.innerHTML = '';
       }
 
-      // Validate required fields
-      if (!nameVal || !emailVal || !messageVal) {
+      function showContactError(msg, focusTarget) {
         if (statusEl) {
           statusEl.className = 'cta-form-status error';
-          statusEl.textContent = 'Please fill out all required fields (*).';
+          statusEl.style.display = 'block';
+          statusEl.innerHTML = `
+            <div style="display: flex; align-items: flex-start; gap: 8px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f87171" stroke-width="2.2" style="flex-shrink:0; margin-top:2px;">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+              <div style="flex:1;">${msg}</div>
+            </div>
+          `;
+          statusEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
+        if (focusTarget) {
+          focusTarget.focus();
+          focusTarget.style.borderColor = '#ef4444';
+          focusTarget.style.boxShadow = '0 0 0 3px rgba(239, 68, 68, 0.25)';
+          setTimeout(function () {
+            focusTarget.style.borderColor = '';
+            focusTarget.style.boxShadow = '';
+          }, 3000);
+        }
+      }
+
+      // Validate required fields specifically
+      if (!nameVal) {
+        showContactError('<strong>Name Required:</strong> Please enter your name.', form.querySelector('[name="name"]'));
+        return;
+      }
+
+      if (!emailVal) {
+        showContactError('<strong>Email Required:</strong> Please enter your email address.', form.querySelector('[name="email"]'));
+        return;
+      }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(emailVal)) {
+        showContactError('<strong>Invalid Email:</strong> Please enter a valid email address (e.g. name@company.com).', form.querySelector('[name="email"]'));
+        return;
+      }
+
+      if (!messageVal) {
+        showContactError('<strong>Project Brief Required:</strong> Please write a brief description of your project or requirements.', form.querySelector('[name="message"]'));
+        return;
+      }
+
+      // Validate GDPR & DPDP Consent Checkbox
+      const consentChecked = form.querySelector('#ctaPrivacyConsent')?.checked;
+      if (!consentChecked) {
+        showContactError('<strong>Consent Required:</strong> Please check the box to consent to DreaInno\'s Privacy Policy (mandatory for GDPR &amp; DPDP compliance).', form.querySelector('#ctaPrivacyConsent'));
         return;
       }
 
       // Validate JS Captcha
+      if (!enteredCaptcha) {
+        showContactError('<strong>Security Code Required:</strong> Please enter the verification code shown above.', captchaInput);
+        return;
+      }
+
       if (enteredCaptcha !== currentCaptcha) {
-        if (statusEl) {
-          statusEl.className = 'cta-form-status error';
-          statusEl.textContent = '❌ Security code is incorrect. Please try again.';
-        }
+        showContactError('<strong>Security Code Mismatch:</strong> Verification code is incorrect. A fresh code has been generated.', captchaInput);
         drawCaptcha();
         if (captchaInput) {
           captchaInput.value = '';
-          captchaInput.focus();
-          captchaInput.style.borderColor = '#ef4444';
-          setTimeout(function () { captchaInput.style.borderColor = ''; }, 2000);
         }
         return;
       }
@@ -1680,7 +1726,7 @@
       if (btnSpinner) btnSpinner.style.display = 'inline-flex';
 
       try {
-        const response = await fetch('https://formsubmit.co/ajax/dreainno@gmail.com', {
+        const response = await fetch('https://formsubmit.co/ajax/admin@dreainno.website', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -1692,9 +1738,11 @@
             Service: serviceVal,
             Budget: budgetVal,
             Message: messageVal,
+            PrivacyConsent: 'Accepted (GDPR & DPDP Compliant)',
             _subject: 'New Project Inquiry from ' + nameVal + ' (' + serviceVal + ')',
             _template: 'table',
-            _captcha: 'false'
+            _captcha: 'false',
+            _cc: 'dreainno@gmail.com'
           })
         });
 
@@ -1703,19 +1751,35 @@
         if (response.ok && (data.success === 'true' || data.success === true || data.message)) {
           if (statusEl) {
             statusEl.className = 'cta-form-status success';
+            statusEl.style.display = 'block';
             statusEl.innerHTML = '<strong>✓ Message Received!</strong> Your inquiry was delivered to <code>admin@dreainno.website</code>. We will respond within 24 hours.';
+            statusEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
           }
           form.reset();
           drawCaptcha();
         } else {
-          throw new Error(data.message || 'Submission failed');
+          throw new Error(data?.message || 'Server rejected submission with status ' + response.status);
         }
       } catch (err) {
         console.warn('FormSubmit AJAX fallback:', err);
         if (statusEl) {
           statusEl.className = 'cta-form-status error';
+          statusEl.style.display = 'block';
           const mailtoFallback = 'mailto:admin@dreainno.website?subject=' + encodeURIComponent('Inquiry from ' + nameVal) + '&body=' + encodeURIComponent(messageVal + '\n\nFrom: ' + nameVal + ' <' + emailVal + '>\nService: ' + serviceVal + '\nBudget: ' + budgetVal);
-          statusEl.innerHTML = 'Delivery service is confirming. <a href="' + mailtoFallback + '" style="color:#2563eb;text-decoration:underline;font-weight:600;">Click here to send directly via email client →</a>';
+          statusEl.innerHTML = `
+            <div style="display: flex; align-items: flex-start; gap: 8px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f87171" stroke-width="2.2" style="flex-shrink:0; margin-top:2px;">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+              <div>
+                <strong>Delivery Notice:</strong> Automated relay could not be completed (${err.message || 'connection issue'}).<br>
+                <a href="${mailtoFallback}" style="color:#2563eb;text-decoration:underline;font-weight:600;display:inline-block;margin-top:4px;">Click here to send directly via email client to admin@dreainno.website →</a>
+              </div>
+            </div>
+          `;
+          statusEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
       } finally {
         if (submitBtn) submitBtn.disabled = false;

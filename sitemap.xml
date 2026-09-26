@@ -116,4 +116,12 @@
     <priority>0.8</priority>
   </url>
 
+  <!-- Technical Remediation & 48-Hour Staging Sprint -->
+  <url>
+    <loc>https://dreainno.website/fix</loc>
+    <lastmod>2026-09-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
 </urlset>

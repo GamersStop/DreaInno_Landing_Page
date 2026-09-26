@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Not Found — DreaInno Studio</title>
+  <meta name="robots" content="noindex, follow">
+  <meta name="theme-color" content="#05060b">
+
+  <!-- Smart Redirect for /fix or deep paths -->
+  <script>
+    (function () {
+      var path = window.location.pathname.toLowerCase();
+      // If the path targets /fix or /fix/, route directly to /fix.html with query parameters preserved
+      if (path.indexOf('/fix') !== -1) {
+        window.location.replace('/fix.html' + window.location.search + window.location.hash);
+      }
+    })();
+  </script>
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/brand/favicon-192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/brand/apple-touch-icon.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,600;1,400&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/variables.css?v=v24">
+  <link rel="stylesheet" href="css/base.css?v=v24">
+  <link rel="stylesheet" href="css/components.css?v=v24">
+
+  <style>
+    .error-hero {
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 24px 60px;
+    }
+
+    .error-code {
+      font-family: var(--font-display);
+      font-size: clamp(5rem, 14vw, 10rem);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.05em;
+      color: #ffffff;
+      background: linear-gradient(135deg, #2b4bee, #ee2b6c);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 12px;
+    }
+
+    .error-title {
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 16px;
+    }
+
+    .error-desc {
+      color: var(--color-text-secondary);
+      max-width: 520px;
+      margin: 0 auto 32px;
+      line-height: 1.6;
+      font-size: 1rem;
+    }
+
+    .error-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header" id="siteHeader">
+    <div class="container header-inner">
+      <a href="index.html" class="brand-logo" aria-label="DreaInno Home">
+        <span class="brand-mark-wrap">
+          <img src="assets/brand/dreainno-mark-white.png" alt="DreaInno Brand Mark" class="brand-mark-img">
+        </span>
+        <span class="brand-name">DreaInno</span>
+      </a>
+
+      <nav class="desktop-nav" aria-label="Main Navigation">
+        <a href="index.html#whatWeOffer" class="nav-link">What We Offer</a>
+        <a href="blog/index.html" class="nav-link">Blog</a>
+        <a href="index.html#work" class="nav-link">Portfolio</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="fix.html" class="nav-link">Remediation</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="index.html#contact" class="btn-primary" style="text-decoration: none;">
+          Start Project
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="error-hero">
+    <div class="container">
+      <div class="error-code">404</div>
+      <h1 class="error-title">Page or Endpoint Not Found</h1>
+      <p class="error-desc">
+        The requested routing does not exist or may have migrated. If you were routed from an AffiScope diagnostic scan, proceed directly to our remediation workbench.
+      </p>
+      <div class="error-actions">
+        <a href="fix.html" class="btn-primary" style="text-decoration: none; padding: 12px 24px;">
+          Open Remediation Workbench →
+        </a>
+        <a href="index.html" class="btn-secondary" style="text-decoration: none; padding: 12px 24px;">
+          Return to Studio Home
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container" style="text-align: center; padding: 32px 0;">
+      <span style="color: var(--color-text-dim); font-size: 0.85rem;">© 2026 DreaInno Studio. All rights reserved.</span>
+    </div>
+  </footer>
+
+</body>
+
+</html>
